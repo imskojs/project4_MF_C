@@ -1,0 +1,11 @@
+ion-view{
+  //.row + .row margin-top initialize
+  .row + .row{
+    margin-top: 0px;
+  }
+  .active{
+    .ion-record{
+      color: $positive;
+    }
+  }
+}

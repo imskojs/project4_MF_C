@@ -1,0 +1,27 @@
+/**
+* Created by Applicat - DevTeam on 05/01/16
+* As part of MyFitMate
+*
+* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
+*
+*/
+
+#login{
+  ion-pane{
+    background: url('../img/log_in_05.jpg') no-repeat center center;
+    background-size: cover;
+    button{
+      font-size: 14px;
+    }
+    .facebook-button{
+      background-color: #3a5a9a;
+    }
+    .kakao-button{
+      color: #3a2020;
+      background-color: #f7db12;
+    }
+  }
+}

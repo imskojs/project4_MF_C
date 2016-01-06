@@ -1,0 +1,131 @@
+<ion-view id="home"
+    cache-view="true"
+    hide-back-button="true"
+    hide-nav-bar="true"
+>
+  <ion-header-bar align-title="center" class="darker-bg70">
+    <div class="buttons">
+      <button class="button button-icon icon ion-ios-gear-outline"
+        ng-click="toggleSideMenu(false)"
+      >
+      </button>
+    </div>
+    <h1 class="title">MYFITMATE</h1>
+    <div class="buttons">
+      <button class="button button-icon icon ion-android-share-alt"
+        ng-click="Home.share()"
+      >
+      </button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="content-height100p">
+    <div class="topArea w100p h250px zero"></div>
+
+    <div class="bottomArea zero positive-bt2px">
+      <p class="zero pt5px pb5px white center black-bg40">
+        함께하는 운동은 즐겁다! 찾아줘
+        <span class="color1">MYFITMATE</span>
+      </p>
+
+      <div class="w90p auto zero pt10px pb10px">
+        <div class="zero mb10px"
+          ng-click="goToState('Main.DaumMap')"
+        >
+          <div class="relative w100p zero rt5px center positive-bg">
+            <p class="h40px zero f18px lh40px white bold">
+              WhereToGo
+            </p>
+            <button class="button-clear absolute top0px bottom0px left0px">
+              <img class="w30px h15px" src="img/mainpage_04.png">
+            </button>
+          </div>
+          <div class="zero center rb5px white-bg">
+            <p class="zero pt5px pb5px f14px darker bold">지도에서 운동할 곳 찾기</p>
+          </div>
+        </div>
+
+        <div class="row zero mb10px">
+          <div class="col-48 zero mr4p"
+            ng-click=""
+          >
+            <div class="relative w100p zero rt5px center positive-bg">
+              <p class="h40px zero pl20px f18px lh40px white bold">
+                나랑운동하자
+              </p>
+              <button class="button-clear absolute top0px bottom0px left0px"
+                ng-click="goToState('Main.Home')"
+              >
+                <img class="w15px h20px" src="img/mainpage_05.png">
+              </button>
+            </div>
+            <div class="zero center rb5px white-bg">
+              <p class="zero pt5px pb5px f14px darker bold">같이 운동하자 친구야</p>
+            </div>
+          </div>
+
+          <div class="col-48 zero"
+            ng-click=""
+          >
+            <div class="relative w100p zero rt5px center positive-bg">
+              <p class="h40px zero pl20px f18px lh40px white bold">
+                운동사전
+              </p>
+              <button class="button-clear absolute top0px bottom0px left0px"
+                ng-click="goToState('Main.Home')"
+              >
+                <img class="w20px h20px" src="img/mainpage_06.png">
+              </button>
+            </div>
+            <div class="zero center rb5px white-bg">
+              <p class="zero pt5px pb5px f14px darker bold">운동도 공부가 필요해</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero">
+          <div class="col-48 zero mr4p"
+            ng-click=""
+          >
+            <div class="relative w100p zero rt5px center positive-bg"
+              ng-click""
+            >
+              <p class="h40px zero pl20px f18px lh40px white bold">
+                궁금하지?
+              </p>
+              <button class="button-clear absolute top0px bottom0px left0px"
+                ng-click="goToState('Main.Home')"
+              >
+                <img class="w20px h20px" src="img/mainpage_07.png">
+              </button>
+            </div>
+            <div class="zero center rb5px white-bg">
+              <p class="zero pt5px pb5px f14px darker bold">궁금한건 물어봐야지</p>
+            </div>
+          </div>
+
+          <div class="col-48 zero"
+            ng-click=""
+          >
+            <div class="relative w100p zero rt5px center positive-bg"
+              ng-click""
+            >
+              <p class="h40px zero pl20px f18px lh40px white bold">
+                이벤트
+              </p>
+              <button class="button-clear absolute top0px bottom0px left0px"
+                ng-click="goToState('Main.Home')"
+              >
+                <img class="w20px h20px" src="img/mainpage_08.png">
+              </button>
+            </div>
+            <div class="zero center rb5px white-bg">
+              <p class="zero pt5px pb5px f14px darker bold">자체 / 제휴업체 Event</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

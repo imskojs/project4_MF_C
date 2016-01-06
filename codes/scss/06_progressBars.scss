@@ -1,0 +1,28 @@
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+//====================================================
+//  ProgressBars
+//====================================================
+progress[value] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+}
+progress[value]::-webkit-progress-value{
+    background-color: $positive;
+}
+progress[value]::-webkit-progress-bar{
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}

@@ -1,0 +1,64 @@
+<ion-view id="coupon-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    쿠폰
+  </ion-nav-title>
+
+  <ion-content>
+    <ion-slide-box>
+      <ion-slide>
+        <img class="block w100p h220px"
+          src="img/detail_03.png"
+        >
+      </ion-slide>
+      <ion-slide>
+        <img class="block w100p h220px"
+          src="img/detail_03.png"
+        >
+      </ion-slide>
+      <ion-slide>
+        <img class="block w100p h220px"
+          src="img/detail_03.png"
+        >
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="zero">
+      <div class="zero p10px">
+        <h2 class="zero f20px dark-grey">파워휘트니스</h2>
+        <p class="zero color1 bold">휘트니스 한달 이용권 10%할인</p>
+      </div>
+
+      <p class="h25px zero pl10px lh25px white bold positive-bg">쿠폰정보</p>
+
+      <div class="zero p10px dark-grey">
+        <p class="zero">
+          사용기간<span class="ml5px bold">2015.09.30</span>
+        </p>
+        <p class="zero">
+          남은수량<span class="ml5px bold red">05</span>
+        </p>
+        <p class="zero">
+          이 쿠폰은 파워휘트니스 매장에서만 사용이 가능하며, 사용시 한달 이용권을 구입 할때 10%할인을 적용하여 결제해 드리는 쿠폰입니다.
+          쿠폰은 재사용이 불가능하며, 매장에서 결제시 매장 담당자가 직접사용처리 해드립니다.
+        </p>
+      </div>
+      <div class="zero center mt20px mb20px">
+        <button class="w60p h40px b0px white bold positive-bg"
+          ng-click="CouponDetail.usingCoupon()"
+        >
+          쿠폰사용
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

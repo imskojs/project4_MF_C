@@ -1,0 +1,156 @@
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+//====================================================
+//  Variables
+//====================================================
+$lighter:                         #d8edfe !default;
+$light:                           #90caf9 !default;
+$stable:                          #fff !default;
+$positive:                        #f24182 !default;
+$calm:                            #0f489e !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #e1053e !default;
+$royal:                           #886aea !default;
+$dark:                            #272730 !default;
+$darker:                          #424253 !default;
+
+$white:                           #fff !default;
+$black:                           #283030 !default;
+
+$lighter-grey:                    #f0f0f0 !default;
+$light-grey:                      #f4f4f4 !default;
+$grey:                            #a2a2a2 !default;
+$dark-grey:                       #666 !default;
+$darker-grey:                     #666 !default;
+
+$red:                             red !default;
+$green:                           green !default;
+$blue:                            blue !default;
+
+$color0:                          #3cddba !default;
+$color1:                          #73b5c6 !default;
+$color2:                          #4f4f63 !default;
+$color3:                          #e05254 !default;
+$color4:                          #f16599 !default;
+$color5:                          #576fa3 !default;
+$color6:                          pink !default;
+$color7:                          pink !default;
+$color8:                          pink !default;
+$color9:                          pink !default;
+
+$img: '../img';
+$app-directions: 'top', 'right', 'bottom', 'left';
+$app-directions-vertical: 'top', 'bottom';
+$app-directions-horizontal: 'bottom', 'left';
+$app-colors: 'lighter', 'light', 'stable', 'positive', 'calm',
+  'balanced', 'energized', 'assertive', 'royal', 'dark', 'darker', 'white', 'black',
+  'lighter-grey', 'light-grey', 'grey', 'dark-grey', 'darker-grey',
+  'red', 'green', 'blue', 'color0', 'color1', 'color2',
+  'color3', 'color4', 'color5', 'color6', 'color7',
+  'color8', 'color9';
+
+
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+//====================================================
+//  Functions
+//====================================================
+@function return-var-from-text($text){
+  @if $text == 'lighter'{
+    @return $lighter;
+  } @else if $text == 'light'{
+    @return $light;
+  } @else if $text == 'stable'{
+    @return $stable;
+  } @else if $text == 'positive'{
+    @return $positive;
+  } @else if $text == 'calm'{
+    @return $calm;
+  } @else if $text == 'balanced'{
+    @return $balanced;
+  } @else if $text == 'energized'{
+    @return $energized;
+  } @else if $text == 'assertive'{
+    @return $assertive;
+  } @else if $text == 'royal'{
+    @return $royal;
+  } @else if $text == 'dark'{
+    @return $dark;
+  } @else if $text == 'darker'{
+    @return $darker;
+  } @else if $text == 'white'{
+    @return $white;
+  } @else if $text == 'black'{
+    @return $black;
+  } @else if $text == 'lighter-grey'{
+    @return $lighter-grey;
+  } @else if $text == 'light-grey'{
+    @return $light-grey;
+  } @else if $text == 'grey'{
+    @return $grey;
+  } @else if $text == 'dark-grey'{
+    @return $dark-grey;
+  } @else if $text == 'darker-grey'{
+    @return $darker-grey;
+  } @else if $text == 'red'{
+    @return $red;
+  } @else if $text == 'green'{
+    @return $green;
+  } @else if $text == 'blue'{
+    @return $blue;
+  } @else if $text == 'color0'{
+    @return $color0;
+  } @else if $text == 'color1'{
+    @return $color1;
+  } @else if $text == 'color2'{
+    @return $color2;
+  } @else if $text == 'color3'{
+    @return $color3;
+  } @else if $text == 'color4'{
+    @return $color4;
+  } @else if $text == 'color5'{
+    @return $color5;
+  } @else if $text == 'color6'{
+    @return $color6;
+  } @else if $text == 'color7'{
+    @return $color7;
+  } @else if $text == 'color8'{
+    @return $color8;
+  } @else if $text == 'color9'{
+    @return $color9;
+  }
+}
+@function return-first-letter($text){
+  @return str-slice($text, 1, 1);
+}
+
+
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+$ionicons-font-path: "../fonts" !default;
+@import "codes/lib/ionic/scss/ionic";

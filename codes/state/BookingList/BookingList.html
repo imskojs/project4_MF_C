@@ -1,0 +1,48 @@
+<ion-view id="booking-list"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    예약하기
+  </ion-nav-title>
+
+  <ion-content>
+    <div class="row h40px zero grey-bb1px f16px lh40px center bold"
+      ng-click=""
+    >
+      <div class="col zero">
+        <p class="zero dark-grey">07:00</p>
+      </div>
+      <div class="col zero">
+        <p class="zero color3">예약불가</p>
+      </div>
+    </div>
+    <div class="row h40px zero grey-bb1px f16px lh40px center bold"
+      ng-click="BookingList.openModal()"
+    >
+      <div class="col zero">
+        <p class="zero dark-grey">07:00</p>
+      </div>
+      <div class="col zero">
+        <p class="zero color1">예약가능</p>
+      </div>
+    </div>
+    <div class="row h40px zero grey-bb1px f16px lh40px center bold color4-bg"
+      ng-click="BookingList.openModal()"
+    >
+      <div class="col zero">
+        <p class="zero white">07:00</p>
+      </div>
+      <div class="col zero">
+        <p class="zero white">예약불가</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

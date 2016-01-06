@@ -1,0 +1,54 @@
+<!--
+/**
+* Created by Applicat - DevTeam on 05/01/16
+* As part of MyFitMate
+*
+* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
+*
+*/
+-->
+
+<ion-view id="favorite-setting"
+  cache-view="true"
+>
+  <ion-pane>
+    <div class="w100p zero mt10p mb20px center">
+      <img class="block w140px h40px auto mb20px" src="img/favoritesetting_01.png">
+      <img class="block w40px h50px auto" src="img/favoritesetting_02.png">
+    </div>
+    <div class="zero w100p">
+      <div class="w80p auto">
+        <div class="relative w100p h40px zero rt5px center positive-bg">
+          <p class="h40px zero f20px lh40px white bold">
+            관심 분야 설정
+          </p>
+          <button class="button-clear absolute top0px bottom0px right0px"
+            ng-click="goToState('Main.Home')"
+          >
+            <i class="icon ion-android-close"></i>
+          </button>
+        </div>
+        <div class="zero center rb5px white-bg">
+          <p class="zero pt10px pb10px f16px bold">관심 분야를 설정해 주세요.</p>
+          <div class="zero mb10px">
+            <select>
+              <option>헬스 / 트레이닝</option>
+            </select>
+          </div>
+          <button class="button-clear mb10px positive-bb2px bold"
+            ng-click=""
+          >
+            설정하기
+          </button>
+          <p class="zero pr10px pl10px pb10px f11px color1 left bold">
+            * 관심 분야 설정시, 관련 분야의 헬스장, 체육관이 등록 될 때, 알림 메시지를 받아 보실 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </ion-pane>
+</ion-view>
+

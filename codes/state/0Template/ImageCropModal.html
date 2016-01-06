@@ -1,0 +1,21 @@
+  <ion-modal-view>
+    <ion-content>
+      <div class="crop-area w100vw h100vh">
+        <img-crop
+          image="ImageCropAttribute.sourceImageBase64"
+          result-image="ImageCropAttribute.croppedImageBase64"
+          area-type="{{ImageCropAttribute.areaType}}"
+        >
+        </img-crop>
+      </div>
+    </ion-content>
+    <ion-footer-bar class="bar-positive footer zero">
+      <div class="row zero">
+        <button class="button"
+          ng-click="ImageCropModal.hide();"
+        >
+          완료
+        </button>
+      </div>
+    </ion-footer-bar>
+  </ion-modal-view>

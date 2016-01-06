@@ -1,0 +1,121 @@
+
+<ion-view id="profile-setting"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    프로필 설정
+  </ion-nav-title>
+
+  <ion-content>
+    <div class="zero p10px color1-bb1px">
+      <p class="zero mb10px">프로필 사진</p>
+      <div class="row zero">
+        <div class="col-48 zero mr4p">
+          <div class="row zero">
+            <div class="col-48 zero mr4p relative">
+              <img class="h70px w70px r70px color0-b"
+                alt="프로파일 이미지"
+                ng-src="{{
+                  ProfileSetting.Model.form.files[0] ||
+                  AppStorage.user.profilePhoto.src ||
+                 'http://placehold.it/70x70'
+                }}"
+                ng-if="ProfileSetting.Model.imgLoading === false"
+              >
+              <div class="flex r70px w70px h70px absolute top0px left0px light-bg"
+                ng-if="ProfileSetting.Model.imgLoading === true"
+              >
+                <ion-spinner class="spinner-30px" icon="ripple">
+                </ion-spinner>
+              </div>
+            </div>
+            <p class="col-48 zero f12px darker-grey">
+              저작권침해 또는 지나치게 선정적인 이미지를 쓸 경우 불이익을 당할 수 있습니다
+            </p>
+          </div>
+        </div>
+        <div class="col-48 zero">
+          <button class="w100p h30px mb10px b0px r5px white positive-bg"
+            ng-click="ProfileSetting.getPhoto('camera')"
+          >사진찍기</button>
+          <button class="w100p h30px white b0px r5px positive-bg"
+            ng-click="ProfileSetting.getPhoto('gallery')"
+          >사진 고르기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="zero p10px">
+      <p class="zero mb10px">닉네임</p>
+      <input class="color0-bb1px placeholder-darker"
+        type="text" placeholder="닉네임을 입력해주세요"
+        ng-model="ProfileSetting.Model.form.nickname"
+      >
+    </div>
+
+    <p class="h25px zero lh25px white center bold positive-bg">추가 정보 입력 (선택사항)</p>
+
+    <div class="zero p10px color1-bb1px">
+      <p class="zero mb5px">거주지</p>
+      <select
+        ng-model="ProfileSetting.Model.form.locations"
+      >
+        <option value="" disabled selected>거주지를 선택해주세요</option>
+        <option value="{{option.text}}"
+          ng-repeat="option in ProfileSetting.Model.locations"
+        >
+          {{option.text}}
+        </option>
+      </select>
+    </div>
+
+    <div class="zero p10px color1-bb1px">
+      <p class="zero mb5px">현재키</p>
+      <input class="color0-bb1px placeholder-darker"
+        type="text" placeholder="키를 입력해주세요"  
+        ng-model="ProfileSetting.Model.form.height"
+      >
+    </div>
+
+    <div class="zero p10px color1-bb1px">
+      <p class="zero mb5px">현재 몸무게 / 목표 몸무게</p>
+      <input class="color0-bb1px placeholder-darker"
+        type="text" placeholder="현재 몸무게를 입력해주세요" 
+        ng-model="ProfileSetting.Model.form.weight"
+      >
+      <input class="mb10px color0-bb1px placeholder-darker"
+        type="text" placeholder="목표 몸무게를 입력해주세요" 
+        ng-model="ProfileSetting.Model.form.targetWeight"
+      >
+    </div>
+
+    <div class="zero p10px">
+      <button class="w100p h40px b0px white center bold positive-bg"
+        ng-click="ProfileSetting.sendForm();"
+      >
+        저장 / 변경하기
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
+
+<!--
+/**
+* Created by Applicat - DevTeam on 05/01/16
+* As part of MyFitMate
+*
+* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
+*
+*/
+-->

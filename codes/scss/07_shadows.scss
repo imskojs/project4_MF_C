@@ -1,0 +1,29 @@
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+
+//====================================================
+//  Shadows
+//====================================================
+.shadow {
+  box-shadow: 1px 1px 2px 1px #555;
+}
+
+@for $i from 0 through 100 {
+  // .f0px, ... .f100px
+  .shadow#{$i}px {
+    font-size: #{$i}px !important;
+    line-height: 100%;
+  }
+  .shadow#{$i}rem {
+    font-size: #{$i}rem !important;
+    line-height: 100%;
+  }
+}

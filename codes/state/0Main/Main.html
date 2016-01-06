@@ -1,0 +1,147 @@
+<ion-view id="main"
+  cache-view="true"
+>
+  <ion-side-menus class="positive-bg">
+    <ion-side-menu-content class="positive-bg"
+      edge-drag-threshold="false"
+      drag-content="false"
+    >
+      <!-- Main View -->
+      <ion-nav-bar class="bar-positive" align-title="center">
+      </ion-nav-bar>
+      <ion-nav-view class="positive-bg"
+        name="Main">
+      </ion-nav-view>
+
+    </ion-side-menu-content>
+
+    <!-- Side Menu -->
+    <ion-side-menu side="left">
+      <ion-content class="darker-bg">
+        <div class="side-menu-bg pb1px">
+          <div class="row zero pt20px">
+            <div class="col-auto ml5p">
+              <img class="h70px w70px r70px color0-b"
+                alt="프로파일 이미지"
+                ng-src="{{AppStorage.user.profilePhoto.src || 'http://placehold.it/70x70'}}"
+              >
+            </div>
+            <div class="col zero ml5p">
+              <p class="zero color0 f16px mt5px bold">
+                {{AppStorage.user.name || 'Kim Ji Hee'}}
+              </p>
+              <p class="zero color0 f14px mt5px bold">
+                {{AppStorage.user.location || '서울'}}
+              </p>
+              <div class="row zero mt5px">
+                <div class="col-auto">
+                  <p class="zero white f14px">
+                    현재 키
+                  </p>
+                </div>
+                <div class="col zero ml5px">
+                  <p class="zero color0 f14px">
+                    {{AppStorage.user.height || '165cm'}}
+                  </p>
+                </div>
+              </div>
+              <div class="row zero mt3px">
+                <div class="col-auto">
+                  <p class="zero white f14px">
+                    현재 몸무게
+                  </p>
+                </div>
+                <div class="col zero ml5px">
+                  <p class="zero color0 f14px">
+                    {{AppStorage.user.weight || '68kg'}}
+                  </p>
+                </div>
+              </div>
+
+              <div class="color0-bb w80p mt8px mb8px"></div>
+
+              <div class="row zero mt3px">
+                <div class="col-auto">
+                  <p class="zero white f14px">
+                    목표 몸무게
+                  </p>
+                </div>
+                <div class="col zero ml5px">
+                  <p class="zero color0 f14px">
+                    {{AppStorage.user.targetWeight || '56kg'}}
+                  </p>
+                </div>
+              </div>
+            </div> <!--col end-->
+          </div> <!--row end-->
+
+          <div class="row zero mt20px mb5px">
+            <div class="col-50 flex-v ml5p">
+              <div class="ion-log-out f26px white">
+              </div>
+              <div class="col zero ml10px">
+                <p class="zero f18px white">
+                  Log out
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold"
+          ng-click="goToState('Main.ProfileSetting')"
+        >
+          프로필 설정
+        </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+          >
+            프로필정보 설정하기
+          </p>
+
+        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
+          관심분야 설정
+        </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'HEALTH'}"
+          >
+            헬스 / 트레이닝
+          </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'AEROBIC'}"
+          >
+            에어로빅
+          </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'PILATES'}"
+          >
+            필라테스
+          </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'YOGA'}"
+          >
+            요가
+          </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'BOXING'}"
+          >
+            복싱
+          </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'CLIMBING'}"
+          >
+            클라이밍
+          </p>
+
+        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
+          예약설정
+        </p>
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold">
+            예약취소
+          </p>
+
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
+
+</ion-view>
+

@@ -1,0 +1,66 @@
+.date-picker-container {
+  background: $positive;
+  padding: 1px;
+}
+
+$date-text-color: #fffff8;
+.date-picker {
+  margin: {
+    top: 5vw;
+    bottom: 55px;
+  }
+  table {
+    width: 90%;
+    margin: 0 auto;
+    * {
+      background: $positive;
+      border: 0;
+    }
+    thead {
+      * {
+        border: 0;
+        background: $positive;
+      }
+      // Date title
+      .btn {
+        position: relative;
+        top: 2.5vw;
+        color: $date-text-color;
+      }
+      .icon {
+        color: $date-text-color;
+      }
+      small {
+        color: $date-text-color;
+      }
+    }
+    tbody {
+      td {
+        height: 13vw;
+        button {
+          height: 12.5vw;
+          border-radius: 100%;
+          span {
+            background: transparent;
+            color: $date-text-color;
+            font-weight: bold
+          }
+          span.text-muted {
+            color: #888;
+          }
+        }
+        button.active {
+          background: $date-text-color;
+          span {
+            color: $positive;
+          }
+        }
+        button[disabled] {
+          span {
+            color: grey;
+          }
+        }
+      }
+    }
+  }
+}

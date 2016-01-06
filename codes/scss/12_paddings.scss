@@ -1,0 +1,42 @@
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
+@for $i from 0 through 600 {
+  // .p0, ..., .p300
+  .p#{$i} {
+    padding: #{$i}px #{$i}% !important;
+  }
+  // .p0p, ..., .p300p
+  .p#{$i}p {
+    padding: #{$i}% !important;
+  }
+  // .p0px, ..., .p300px
+  .p#{$i}px {
+    padding: #{$i}px !important;
+  }
+  @each $app-direction in $app-directions {
+    // .pt0px, ..., .pl300px
+    .p#{return-first-letter($app-direction)}#{$i}px{
+      padding-#{$app-direction}: #{$i}px !important;
+    }
+    // .pt0p, ..., .pl300p
+    .p#{return-first-letter($app-direction)}#{$i}p{
+      padding-#{$app-direction}: #{$i}% !important;
+    }
+    // .pt0vw, ..., .pl300vw
+    .p#{return-first-letter($app-direction)}#{$i}vw{
+      padding-#{$app-direction}: #{$i}vw !important;
+    }
+    // .pt0vh, ..., .pl300vh
+    .p#{return-first-letter($app-direction)}#{$i}vh{
+      padding-#{$app-direction}: #{$i}vh !important;
+    }
+  }
+}

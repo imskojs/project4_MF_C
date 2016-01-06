@@ -1,0 +1,20 @@
+{
+  "name": "myfitmate",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "dependencies": {
+    "angular-resource": "~1.4.8",
+    "moment": "~2.11.0",
+    "lodash": "~3.10.1",
+    "ngCordova": "~0.1.23-alpha",
+    "ngstorage": "~0.3.10",
+    "ng-file-upload": "7.3.9",
+    "ng-img-crop-full-extended": "ngImgCropFullExtended#~0.4.7",
+    "uiBootstrapDatePicker": "https://github.com/imskojs/uiBootStrapDatePicker.git"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
+  }
+}

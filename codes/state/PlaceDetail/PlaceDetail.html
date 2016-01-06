@@ -1,0 +1,156 @@
+<ion-view id="place-detail"
+  cache-view="true"
+  hide-back-button="true"
+  >
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-android-arrow-back"
+    ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    {{PlaceDetail.Model.place.name}}
+  </ion-nav-title>
+  <ion-content class="pt1px">
+    <div class="w100p h300vh flex-h light-grey-bg absolute pt100px"
+      style="z-index: 2"
+      ng-if="PlaceDetail.Model.loading"
+    >
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </div>
+    <!-- photos -->
+    <ion-slide-box class="w100p auto"
+      show-pager="true"
+    >
+      <ion-slide
+        ng-repeat="photo in PlaceDetail.Model.place.photos"
+      >
+        <img class="w100p block h240px lazy-show"
+          ng-src="{{photo.url | Cloudinary400}}"
+        >
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="pl3p pr3p pt5px pb5px"> <!-- container start -->
+
+      <p class="darker f16px bold">
+        {{PlaceDetail.Model.place.name}}
+      </p>
+
+      <div class="row zero grey-b r5px">
+        <div class="col zero flex pt5px pb5px"
+          ng-click="PlaceDetail.call();"
+        >
+          <div class="ion-ios-telephone-outline f24px col-auto"></div>
+          <div class="col-40 zero">
+            <p class="zero f14px darker center">
+              전화하기
+            </p>
+          </div>
+        </div>
+
+        <div class="col zero flex grey-bl pt5px pb5px"
+          ng-click="goToState('Main.PlaceContact', {
+            place: getParam('id')
+          }, 'forward')
+          "
+        >
+          <div class="ion-compose f24px col-auto"></div>
+          <div class="col-40 zero center">
+            <p class="zero f14px darker">
+              연락받기
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row zero flex-v mt5px">
+        <div class="col-30">
+          <p class="zero color1 bold f14px">
+            주 분야
+          </p>
+        </div>
+        <div class="col zero">
+          <p class="zero">
+            {{(PlaceDetail.Model.place.category | AppText) || '헬스 / 트레이닝'}}
+          </p>
+        </div>
+      </div>
+
+      <p class="zero f14px mt10px color1 bold">
+        소개
+      </p>
+      <p class="zero mt3px">
+        {{PlaceDetail.Model.place.description}}
+      </p>
+
+      <p class="zero f14px mt10px color1 bold">
+        주소 / 찾아가는길
+      </p>
+      <p class="zero mt3px mb3px">
+        {{PlaceDetail.Model.place.address}}
+      </p>
+      <div class="h300px w100p disabled"
+        static-daum-map
+        longitude="{{PlaceDetail.Model.place.geoJSON.coordintates[1] || 127}}"
+        latitude="{{PlaceDetail.Model.place.geoJSON.coordintates[0] || 37.5}}"
+      >
+      </div>
+
+      <p class="zero f14px mt10px color1 bold mb5px">
+        예약하기
+      </p>
+      <div class="date-picker-container shadow">
+        <datepicker class="date-picker"
+          ng-model="PlaceDetail.date"
+          show-weeks="false"
+          date-disabled="PlaceDetail.disablePast(date, mode)"
+        >
+        </datepicker>
+      </div>
+
+      <p class="zero f14px color1 bold mt10px">
+        사용 가능한 쿠폰
+      </p>
+
+      <div class="row zero positive-br5px mt5px r5px shadow"
+        ng-repeat="coupon in PlaceDetail.Model.coupons"
+        ng-click="goToState('Main.CouponDetail', {id: coupon.id}, 'forward')"
+      >
+        <div class="col-40 positive-bg flex r5px">
+          <img class="fit w100p"
+            alt="장소 메인 사진"
+            ng-src="{{coupon.photos[0].url | Cloudinary400}}" 
+          >
+        </div>
+        <div class="col zero ml5px pt5px">
+          <p class="zero f16px darker">
+            {{coupon.title}}
+          </p>
+          <p class="zero f14px color1">
+            {{coupon.content}}
+          </p>
+          <p class="zero darker f14px mt15px">
+            사용기간
+          </p>
+          <p class="zero f14px">
+            {{coupon.expirationDate | date: 'yyyy.MM.dd'}} 까지
+          </p>
+          <div class="row zero mt5px pb5px">
+            <div class="col-30">
+              남은수량
+            </div>
+            <div class="col zero red f20px">
+              {{coupon.quantity}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div> <!-- container ends -->
+  </ion-content>
+  
+</ion-view>

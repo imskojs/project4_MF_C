@@ -1,0 +1,42 @@
+<ion-modal-view id="daum-map-modal">
+  <ion-content class="daum-map-modal-content">
+    <div class="daum-map-modal-container">
+
+      <div class="r1 row row-title zero"
+        touch
+        ng-click="DaumMap.Model.modal.hide()"
+      >
+        <div class="c1 col-90 flex">
+          <p>
+            {{ DaumMap.Model.selectedPlace.name }}
+          </p>
+        </div>
+        <div class="c2 col flex"
+        >
+          <i class="icon ion-ios-close-empty"></i>
+        </div>
+      </div>
+
+      <div class="r2 row row-content zero radius-bottom relative"
+        ng-click="DaumMap.goToState('Main.PlaceDetail', {id: DaumMap.Model.selectedPlace.id})"
+      >
+        <div class="c1 col zero radius-bottom">
+          <img class="radius-bottom lazy-show"
+            ng-src="{{ DaumMap.Model.selectedPlace.photos[0].url | Cloudinary400}}"
+          >
+
+          <div class="description absolute radius-bottom">
+            <div class="row row-description flex-v zero radius-bottom">
+              <div class="c2 col col-offset-10">
+                <p class="zero">
+                  {{ DaumMap.Model.selectedPlace.address }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+</ion-modal-view>

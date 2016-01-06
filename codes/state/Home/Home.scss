@@ -1,0 +1,30 @@
+/**
+* Created by Applicat - DevTeam on 05/01/16
+* As part of MyFitMate
+*
+* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
+*
+*/
+
+#home {
+  ion-header-bar{
+    background-image: none;
+  }
+  .content-height100p {
+    background: url('../img/mainpage_10.jpg') no-repeat center center;
+    background-size: cover;
+    top: 0px;
+    height: 100%;
+    margin: 0;
+    .scroll {
+      height: 100%;
+    }
+    div.topArea {
+      background: url('../img/mainpage_09.jpg') no-repeat center center;
+      background-size: cover;
+    }
+  }
+}
