@@ -92,6 +92,11 @@
   color: $white;
 }
 
+.ion-chevron-up::before{
+  font-size: 12px !important;
+  color: $positive;
+}
+
 .spinner {
   svg {
     fill: $positive;

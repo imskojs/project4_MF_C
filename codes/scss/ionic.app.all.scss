@@ -591,6 +591,11 @@ img {
   color: $white;
 }
 
+.ion-chevron-up::before{
+  font-size: 12px !important;
+  color: $positive;
+}
+
 .spinner {
   svg {
     fill: $positive;
@@ -1255,11 +1260,21 @@ ion-view{
   }
 }
 
+#post-event{
+  .bar-subheader{
+    background-image: none;
+  }
+}
+
 #bookingcancel-list{
 
 }
 
 #booking-list{
+
+}
+
+#coupon-detail{
 
 }
 
@@ -1352,6 +1367,16 @@ ion-view{
     }
 }
 
+#eventfitmate-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
 /**
 * Created by Applicat - DevTeam on 05/01/16
 * As part of MyFitMate
@@ -1367,38 +1392,6 @@ ion-view{
   ion-pane{
     background: url('../img/log_in_05.jpg') no-repeat center center;
     background-size: cover;
-  }
-}
-
-#coupon-detail{
-
-}
-
-/**
-* Created by Applicat - DevTeam on 05/01/16
-* As part of MyFitMate
-*
-* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
-* Unauthorized copying of this file, via any medium is strictly prohibited
-* Proprietary and confidential
-* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
-*
-*/
-
-#login{
-  ion-pane{
-    background: url('../img/log_in_05.jpg') no-repeat center center;
-    background-size: cover;
-    button{
-      font-size: 14px;
-    }
-    .facebook-button{
-      background-color: #3a5a9a;
-    }
-    .kakao-button{
-      color: #3a2020;
-      background-color: #f7db12;
-    }
   }
 }
 
@@ -1433,8 +1426,96 @@ ion-view{
   }
 }
 
+/**
+* Created by Applicat - DevTeam on 05/01/16
+* As part of MyFitMate
+*
+* Copyright (C) Applicat (www.applicat.co.kr) - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Maengkwan Seo <hbnb7894@gmail.com>, 05/01/16
+*
+*/
+
+#login{
+  ion-pane{
+    background: url('../img/log_in_05.jpg') no-repeat center center;
+    background-size: cover;
+    button{
+      font-size: 14px;
+    }
+    .facebook-button{
+      background-color: #3a5a9a;
+    }
+    .kakao-button{
+      color: #3a2020;
+      background-color: #f7db12;
+    }
+  }
+}
+
+#place-contact{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
 #place-detail{
 
+}
+
+#postfit-postevent{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
+  }
+}
+
+#postevent-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
 }
 
 #place-contact{
@@ -1478,6 +1559,12 @@ ion-view{
       top: -5px;
       left: 105px;
     }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
   }
 }
 
@@ -1487,6 +1574,136 @@ ion-view{
   }
   ion-content{
     background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#place-contact{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postinfo-detail{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
+  }
+}
+
+#postinfo-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postinfo-write{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-detail{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
+  }
+}
+
+#postquestion-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-write{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
     background-size: cover;
   }
 }
@@ -1503,10 +1720,6 @@ ion-view{
 */
 
 #coupon-detail{
-
-}
-
-#reservation-list{
 
 }
 

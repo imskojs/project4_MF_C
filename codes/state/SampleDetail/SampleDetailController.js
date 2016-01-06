@@ -4,18 +4,16 @@
     .controller('SampleDetailController', SampleDetailController);
 
   SampleDetailController.$inject = [
-    '$scope', '$state', '$q',
+    '$scope', '$state', '$q', '$ionicScrollDelegate',
     'SampleDetailModel', 'Post', 'Message', 'U', 'Preload'
   ];
 
   function SampleDetailController(
-    $scope, $state, $q,
+    $scope, $state, $q, $ionicScrollDelegate,
     SampleDetailModel, Post, Message, U, Preload
   ) {
     var SampleDetail = this;
     SampleDetail.Model = SampleDetailModel;
-
-    SampleDetail.refresh = refresh;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
@@ -25,6 +23,7 @@
     //====================================================
     function onBeforeEnter() {
       SampleDetailModel.loading = true;
+      $ionicScrollDelegate.scrollTop(false);
     }
 
     function onAfterEnter() {
@@ -36,27 +35,17 @@
         .catch(U.error);
     }
 
-    function refresh() {
-      return findOne()
-        .then(function(post) {
-          console.log(post);
-          U.bindData(post, SampleDetailModel, 'post');
-        })
-        .catch(U.error)
-        .finally(function() {
-          U.broadcast($scope);
-        });
-    }
-
     //====================================================
     //  Implementations
     //====================================================
     function findOne(extraQuery) {
-      var query = {
-        id: $state.params.id
+      var queryWrapper = {
+        query: {
+          id: $state.params.id
+        }
       };
-      angular.extend(query, extraQuery);
-      return Post.findOne(query).$promise
+      angular.extend(queryWrapper.query, extraQuery);
+      return Post.findOne(queryWrapper).$promise
         .then(function(post) {
           var photosPromise = Preload.photos(post, 'cloudinary200', false);
           return $q.all([post, photosPromise]);

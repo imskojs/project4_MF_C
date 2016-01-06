@@ -13,11 +13,11 @@
   'use strict';
 
   angular.module('app')
-    .factory('ReservationListModel', ReservationListModel);
+    .factory('PlaceDetailModel', PlaceDetailModel);
 
-  ReservationListModel.$inject = [];
+  PlaceDetailModel.$inject = [];
 
-  function ReservationListModel() {
+  function PlaceDetailModel() {
 
     var model = {};
 

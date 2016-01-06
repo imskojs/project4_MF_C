@@ -21,10 +21,11 @@
   </ion-nav-buttons>
 
   <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
-    <select class="mr10px">
+    <select class="w100px h30px mr10px grey-b1px">
       <option>서울특별시</option>
     </select>
     <select
+      class="w70px h30px grey-b1px"
       ng-model="PostFitList.Location"
       ng-options="Location.name for Location in PostFitList.Locations"
     >
@@ -32,6 +33,15 @@
   </ion-header-bar>
 
   <ion-content class="top84px">
+    <div class="w100p h95vh flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostFitList.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+
     <div class="zero pt10px pb10px color1-bb1px"
       ng-click="goToState('Main.PostFitDetail')"
     >
@@ -85,5 +95,12 @@
         </div>
       </div>
     </div>
+
+    <ion-infinite-scroll
+      on-infinite="postFitList.loadMore()"
+      immediate-check="true"
+      ng-if="postFitList.Model.more"
+    >
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

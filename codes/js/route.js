@@ -130,11 +130,151 @@
       //  PostFitDetail
       //====================================================
       .state('Main.PostFitDetail', {
-        url: '/PostFitDetail',
+        url: '/PostFitDetail/:id',
         views: {
           Main: {
             templateUrl: 'state/PostFitDetail/PostFitDetail.html',
             controller: 'PostFitDetailController as PostFitDetail'
+          }
+        }
+      })
+      //====================================================
+      //  PostInfoList
+      //====================================================
+      .state('Main.PostInfoList', {
+        url: '/PostInfoList',
+        views: {
+          Main: {
+            templateUrl: 'state/PostInfoList/PostInfoList.html',
+            controller: 'PostInfoListController as PostInfoList'
+          }
+        }
+      })
+      //====================================================
+      //  PostInfoWrite
+      //====================================================
+      .state('Main.PostInfoWrite', {
+        url: '/PostInfoWrite',
+        views: {
+          Main: {
+            templateUrl: 'state/PostInfoWrite/PostInfoWrite.html',
+            controller: 'PostInfoWriteController as PostInfoWrite'
+          }
+        }
+      })
+      //====================================================
+      //  PostInfoDetail
+      //====================================================
+      .state('Main.PostInfoDetail', {
+        url: '/PostInfoDetail/:id',
+        views: {
+          Main: {
+            templateUrl: 'state/PostInfoDetail/PostInfoDetail.html',
+            controller: 'PostInfoDetailController as PostInfoDetail'
+          }
+        }
+      })
+      //====================================================
+      //  PostQuestionList
+      //====================================================
+      .state('Main.PostQuestionList', {
+        url: '/PostQuestionList',
+        views: {
+          Main: {
+            templateUrl: 'state/PostQuestionList/PostQuestionList.html',
+            controller: 'PostQuestionListController as PostQuestionList'
+          }
+        }
+      })
+      //====================================================
+      //  PostQuestionWrite
+      //====================================================
+      .state('Main.PostQuestionWrite', {
+        url: '/PostQuestionWrite',
+        views: {
+          Main: {
+            templateUrl: 'state/PostQuestionWrite/PostQuestionWrite.html',
+            controller: 'PostQuestionWriteController as PostQuestionWrite'
+          }
+        }
+      })
+      //====================================================
+      //  PostQuestionDetail
+      //====================================================
+      .state('Main.PostQuestionDetail', {
+        url: '/PostQuestionDetail/:id',
+        views: {
+          Main: {
+            templateUrl: 'state/PostQuestionDetail/PostQuestionDetail.html',
+            controller: 'PostQuestionDetailController as PostQuestionDetail'
+          }
+        }
+      })
+      //====================================================
+      //  PostEventList
+      //====================================================
+      .state('PostEvent', {
+        url: '/PostEvent',
+        templateUrl: 'state/0PostEvent/PostEvent.html',
+        controller: 'PostEventController as PostEvent'
+      })
+      //====================================================
+      //  EventFitMateList
+      //====================================================
+      .state('PostEvent.EventFitMateList', {
+        url: '/EventFitMateList',
+        views: {
+          PostEvent: {
+            templateUrl: 'state/EventFitMateList/EventFitMateList.html',
+            controller: 'EventFitMateListController as EventFitMateList'
+          }
+        }
+      })
+      //====================================================
+      //  EventFitMateDetail
+      //====================================================
+      .state('Main.EventFitMateDetail', {
+        url: '/EventFitMateDetail/:id',
+        views: {
+          Main: {
+            templateUrl: 'state/EventFitMateDetail/EventFitMateDetail.html',
+            controller: 'EventFitMateDetailController as EventFitMateDetail'
+          }
+        }
+      })
+      //====================================================
+      //  EventCompanyList
+      //====================================================
+      .state('PostEvent.EventCompanyList', {
+        url: '/EventCompanyList',
+        views: {
+          PostEvent: {
+            templateUrl: 'state/EventCompanyList/EventCompanyList.html',
+            controller: 'EventCompanyListController as EventCompanyList'
+          }
+        }
+      })
+      //====================================================
+      //  EventCompanyWrite
+      //====================================================
+      .state('PostEvent.EventCompanyWrite', {
+        url: '/EventCompanyWrite',
+        views: {
+          PostEvent: {
+            templateUrl: 'state/EventCompanyWrite/EventCompanyWrite.html',
+            controller: 'EventCompanyWriteController as EventCompanyWrite'
+          }
+        }
+      })
+      //====================================================
+      //  EventCompanyDetail
+      //====================================================
+      .state('PostEvent.EventCompanyDetail', {
+        url: '/EventCompanyDetail/:id',
+        views: {
+          PostEvent: {
+            templateUrl: 'state/EventCompanyDetail/EventCompanyDetail.html',
+            controller: 'EventCompanyDetailController as EventCompanyDetail'
           }
         }
       })

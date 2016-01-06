@@ -54,7 +54,7 @@
         $state.go('Main.WalkThrough');
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
-        $state.go('Main.PostFitDetail', {
+        $state.go('PostEvent.EventCompanyList', {
           id: '55a9f3fe3523f5303afaea30'
         });
         // $state.go('Main.BookingList');

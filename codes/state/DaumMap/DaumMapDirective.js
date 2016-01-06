@@ -94,7 +94,7 @@
                   $near: {
                     $geometry: {
                       type: 'Point',
-                      coordinates: [currentCenter.longitude, currentCenter.latitude]
+                      coordinates: [currentCenter.longitude, currentCenter.lattitude, ]
                     },
                     $maxDistance: currentCenter.distance || 5000
                   }
@@ -104,7 +104,7 @@
                 populates: ['photos']
               }
             };
-            PlacesPromise = Place.findNative(query).$promise;
+            PlacesPromise = Place.within(query).$promise;
           }
           return PlacesPromise;
         }
@@ -146,7 +146,7 @@
                 Place.findOne({
                     query: {
                       id: DaumMapModel.places[index].id,
-                      populates: ['photos', 'createdBy']
+                      populates: 'photos,createdBy'
                     }
                   }).$promise
                   .then(function(data) {
@@ -296,7 +296,7 @@
           // ------------------------
           daum.maps.event.addListener(map, 'idle', function() {
             map.relayout();
-            if ($window.cordova && !$window.cordova.plugins.Keyboard.isVisible) {
+            if (!$window.cordova.plugins.Keyboard.isVisible) {
               Message.loading();
             }
             var currentCenter = {
@@ -306,7 +306,7 @@
             DaumMapModel.lastCenter = currentCenter;
             angular.extend(currentCenter, {
               distance: 5000,
-              limit: 40
+              limit: 20
             });
             drawMarkers(currentCenter, markerImg, markerClickedImg, scope);
           });

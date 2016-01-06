@@ -34,7 +34,10 @@
     //====================================================
     //  Implementation
     //====================================================
-    function photos(arrayOfObjsWithPhotosArray, cloudinaryFilterName, onlyFirstOnesBool) {
+    function photos(arrayOfObjsWithPhotosArray, cloudinaryFilterName, onlyFirstOnesBool, neverMind) {
+      if (neverMind) {
+        return [];
+      }
       var urls = getPhotos(arrayOfObjsWithPhotosArray, cloudinaryFilterName, onlyFirstOnesBool);
       var promises = [];
       angular.forEach(urls, function(url) {

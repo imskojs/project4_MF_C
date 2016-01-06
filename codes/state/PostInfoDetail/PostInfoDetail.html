@@ -1,0 +1,131 @@
+<ion-view id="postinfo-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    운동사전
+  </ion-nav-title>
+
+  <ion-content>
+    <div class="w100p h95vh flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostInfoDetail.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+    <div class="zero pt10px pb10px color1-bb1px">
+      <div class="w90p zero auto">
+        <p class="zero mb10px f16px darker bold text-overflow">
+          강남구 역삼동 같이 요가 하실 여성 분 찾아요~
+        </p>
+        <div class="flex-v zero f12px grey text-overflow">
+          <p class="zero pr5px color5">Lee Yeon Hee</p>
+          /
+          <p class="zero pl5px">2015.01.05 13: 30</p>
+          <p class="zero pl5px">
+            조회<span>638</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative zero positive-bg20">
+      <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
+      <div class="absolute top5px right30px zero">
+        <button class="b0px r5px white bold positive-bg"
+          ng-click="showBubble = !showBubble"
+        >
+          글관리
+          <i class="icon ion-arrow-down-b"></i>
+        </button>
+      </div>
+      <div class="zero absolute top35px right30px zero"
+        ng-show="showBubble"
+      >
+        <div class="bubble row w120px h30px zero center bold">
+          <p class="col zero lh26px"
+            ng-click=""
+          >
+            수정
+          </p>
+          <p class="col zero lh26px"
+            ng-click=""
+          >
+            삭제
+          </p>
+        </div>
+      </div>
+      <div class="zero ml30px pt20px pr30px pb20px pl30px color1-bl1px">
+        <div class="flex-v zero mb10px">
+          <p class="zero pr5px f12px color5 bold">Lee Yeon Hee</p>
+          <p class="zero f10px grey">2015. 01. 01 15:30</p>
+        </div>
+        <p class="zero f12px lh14px darker">
+          강남구 역삼동에 사는 이연희라고 합니다.
+          역삼동 파워 휘트니스에서 직장인 반 요가 클래스가 있는데, 수업이
+          끝나면 시간이 늦어 혼자 다니기가 고민되서요 ㅠ
+          같은 지역 사시는 여성 분들 중 같이 요가 배워보실분 찾습니다~
+        </p>
+      </div>
+      <div class="flex-v absolute bottom5px left40px zero f12px darker bold">
+        <i class="icon ion-chevron-up"></i>
+        <p class="ml5px zero">
+          댓글 <span>96</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="zero color1-bb1px grey-bg30">
+      <div class="flex-v w90p pt10px pb10px zero auto">
+        <input class="h30px mr10px darker-b1px r3px white-bg"
+          type="text">
+        <button class="w90px h30px b0px r3px white bold black-bg">
+          COMMENT
+        </button>
+      </div>
+
+      <div class="zero pt10px pb10px grey-bb1px">
+        <div class="relative w90p zero auto">
+          <div class="flex-v zero mb10px grey text-overflow">
+            <p class="zero pr5px f16px color5 bold">Lee Yeon Hee</p>
+            /
+            <p class="zero pl5px f12px">2015.01.05 13: 30</p>
+          </div>
+          <button class="button-clear ion-android-close absolute top0px right0px"
+            ng-click=""
+          >
+          </button>
+          <p class="zero f14px dark-grey">
+            강남구 역삼동 역삼 공원쪽에 사는 임경화에요! 저도 그 클래스 보고 고민 고민 하던 중이었는데!! 같이 하실래요~?
+          </p>
+        </div>
+      </div>
+
+      <div class="zero pt10px pb10px grey-bb1px">
+        <div class="relative w90p zero auto">
+          <div class="flex-v zero mb10px grey text-overflow">
+            <p class="zero pr5px f16px color5 bold">Lee Yeon Hee</p>
+            /
+            <p class="zero pl5px f12px">2015.01.05 13: 30</p>
+          </div>
+          <button class="button-clear ion-android-close absolute top0px right0px"
+            ng-click=""
+          >
+          </button>
+          <p class="zero f14px dark-grey">
+            강남구 역삼동 역삼 공원쪽에 사는 임경화에요! 저도 그 클래스 보고 고민 고민 하던 중이었는데!! 같이 하실래요~?
+          </p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

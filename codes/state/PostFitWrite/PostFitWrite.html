@@ -14,10 +14,11 @@
   </ion-nav-title>
 
   <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
-    <select class="mr10px">
+    <select class="w100px h30px mr10px grey-b1px">
       <option>서울특별시</option>
     </select>
     <select
+      class="w70px h30px grey-b1px"
       ng-model="PostFitWrite.Location"
       ng-options="Location.name for Location in PostFitWrite.Locations"
     >
@@ -48,7 +49,7 @@
           등록하기
         </button>
         <button class="w100px h40px b0px r3px f18px white bold positive-bg"
-          ng-click=""
+          ng-click="goBack()"
         >
           취소하기
         </button>
