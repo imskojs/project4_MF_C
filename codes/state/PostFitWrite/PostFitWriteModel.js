@@ -13,7 +13,11 @@
   ) {
 
     var Model = {
-
+      form: {
+        title: '',
+        content: '',
+        location: ''
+      }
     };
 
     return Model;

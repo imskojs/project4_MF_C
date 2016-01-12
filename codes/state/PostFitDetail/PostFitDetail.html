@@ -51,7 +51,7 @@
       <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
       <div class="absolute top5px right30px zero">
         <button class="b0px r5px white bold positive-bg"
-          ng-if="AppStorage.user.owner === PostFitDetail.Model.post.createdBy.id"
+          ng-if="AppStorage.user.id === PostFitDetail.Model.post.createdBy.id"
           ng-click="PostFitDetail.showBubble = !PostFitDetail.showBubble"
         >
           글관리
@@ -123,7 +123,7 @@
             </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-if="AppStorage.user.owner === comment.owner"
+            ng-if="AppStorage.user.id === comment.createdBy.id"
             ng-click="PostFitDetail.destroyComment(comment.id)"
           >
           </button>
@@ -136,7 +136,7 @@
 
     <ion-infinite-scroll
       on-infinite="PostFitDetail.loadMoreComments()"
-      immediate-check="true"
+      immediate-check="false"
       ng-if="PostFitDetail.Model.more"
     >
     </ion-infinite-scroll>

@@ -14,6 +14,7 @@
   ) {
     var PostQuestionDetail = this;
     PostQuestionDetail.Model = PostQuestionDetailModel;
+    var initPromise;
     var noLoadingStates = [];
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
@@ -34,22 +35,45 @@
     function onBeforeEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
         U.loading(PostQuestionDetailModel);
+        initPromise = init();
       }
     }
 
     function onAfterEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
-        loadAll();
+        return initPromise
+          .then(function(array) {
+            var post = array[0];
+            var commentsWrapper = array[1];
+            U.bindData(post, PostQuestionDetailModel, 'post');
+            U.bindData(commentsWrapper, PostQuestionDetailModel, 'comments');
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
       }
     }
 
     function onBeforeLeave() {
       U.resetSlides();
       PostQuestionDetail.showBubble = false;
+      PostQuestionDetail.commentContent = '';
     }
 
     function refresh() {
-      loadAll();
+      return init()
+        .then(function(array) {
+          var post = array[0];
+          var commentsWrapper = array[1];
+          U.bindData(post, PostQuestionDetailModel, 'post');
+          U.bindData(commentsWrapper, PostQuestionDetailModel, 'comments');
+        })
+        .catch(function(err) {
+          U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
+        });
     }
 
     function loadMoreComments() {
@@ -73,22 +97,8 @@
     //====================================================
     //  Helper
     //====================================================
-
-    function loadAll(){
-      PostQuestionDetail.commentContent = '';
-      return $q.all([findOnePost(), findComments()])
-      .then(function(array){
-        var post = array[0];
-        var commentsWrapper = array[1];
-        U.bindData(post, PostQuestionDetailModel, 'post');
-        U.bindData(commentsWrapper, PostQuestionDetailModel, 'comments');
-      })
-      .catch(function(err){
-        U.error(err);
-      })
-      .finally(function(){
-        U.broadcast($scope);
-      });
+    function init() {
+      return $q.all([findOnePost(), findComments()]);
     }
 
     //====================================================
@@ -148,11 +158,12 @@
           id: $state.params.id
         }
       };
+      Message.loading();
       return Post.destroy(queryWrapper).$promise
         .then(function(destroyedPost) {
           console.log("---------- destroyedPost ----------");
           console.log(destroyedPost);
-          Message.alert('글삭제 알림', '글을 성공적으로 삭제하였습니다.');
+          return Message.alert('글삭제 알림', '글을 성공적으로 삭제하였습니다.');
         })
         .then(function() {
           U.goToState('Main.PostQuestion.PostQuestionList', null, 'back');
@@ -162,37 +173,41 @@
         });
     }
 
-    function createComment(){
+    function createComment() {
       var queryWrapper = {
         query: {
           post: $state.params.id,
           content: PostQuestionDetail.commentContent
         }
       };
-      return Comment.create({},queryWrapper).$promise
+      Message.loading();
+      return Comment.create({}, queryWrapper).$promise
         .then(function(createdComment) {
           console.log("---------- createdComment ----------");
           console.log(createdComment);
           refresh();
+          return Message.alert('댓글달기 알림', '댓글을 성공적으로 작성하였습니다.');
         })
-        .catch(function(err){
+        .catch(function(err) {
           U.error(err);
         });
     }
 
-    function destroyComment(commentId){
+    function destroyComment(commentId) {
       var queryWrapper = {
         query: {
           id: commentId
         }
       };
+      Message.loading();
       return Comment.destroy(queryWrapper).$promise
         .then(function(destroyedComment) {
           console.log("---------- destroyedComment ----------");
           console.log(destroyedComment);
           refresh();
+          return Message.alert('댓글 알림', '댓글을 성공적으로 삭제하였습니다.');
         })
-        .catch(function(err){
+        .catch(function(err) {
           U.error(err);
         });
     }

@@ -4,10 +4,12 @@
     .controller('PostQuestionWriteController', PostQuestionWriteController);
 
   PostQuestionWriteController.$inject = [
+    '$scope',
     'PostQuestionWriteModel', 'Post', 'U', 'Message'
   ];
 
   function PostQuestionWriteController(
+    $scope,
     PostQuestionWriteModel, Post, U, Message
   ) {
     var PostQuestionWrite = this;
@@ -15,22 +17,27 @@
     PostQuestionWrite.sendForm = sendForm;
 
 
+    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
     //====================================================
     //  Implementation
     //====================================================
+    function onBeforeLeave() {
+      PostQuestionWriteModel.form.title = '';
+      PostQuestionWriteModel.form.content = '';
+    }
+
     function sendForm() {
       Message.loading();
       return createPost()
         .then(function(createdPost) {
-          Message.hide();
           console.log("---------- createdPost ----------");
           console.log(createdPost);
+          return Message.alert('글작성 알림', '글을 성공적으로 작성하였습니다.');
         })
-        .then(function(){
-          U.goToState('Main.PostQuestion.PostQuestionList');
+        .then(function() {
+          U.goToState('Main.PostQuestion.PostQuestionList', null, 'back');
         })
         .catch(function(err) {
-          Message.hide();
           U.error(err);
         });
     }

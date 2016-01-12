@@ -51,7 +51,7 @@
       <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
       <div class="absolute top5px right30px zero">
         <button class="b0px r5px white bold positive-bg"
-          ng-if="AppStorage.user.owner === PostQuestionDetail.Model.post.createdBy.id"
+          ng-if="AppStorage.user.id === PostQuestionDetail.Model.post.createdBy.id"
           ng-click="PostQuestionDetail.showBubble = !PostQuestionDetail.showBubble"
         >
           글관리
@@ -63,7 +63,9 @@
       >
         <div class="bubble row w120px h30px zero center bold">
           <p class="col zero lh26px"
-            ng-click="goToState('Main.PostQuestion.PostQuestionUpdate', { id: getParam('id') }, 'forward')"
+            ng-click="goToState('Main.PostQuestion.PostQuestionUpdate', { 
+              id: getParam('id') 
+            }, 'forward')"
           >
             수정
           </p>
@@ -122,7 +124,7 @@
             </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-if="AppStorage.user.owner === comment.owner"
+            ng-if="AppStorage.user.id === comment.createdBy.id"
             ng-click="PostQuestionDetail.destroyComment(comment.id)"
           >
           </button>
@@ -135,7 +137,7 @@
 
     <ion-infinite-scroll
       on-infinite="PostQuestionDetail.loadMoreComments()"
-      immediate-check="true"
+      immediate-check="false"
       ng-if="PostQuestionDetail.Model.more"
     >
     </ion-infinite-scroll>

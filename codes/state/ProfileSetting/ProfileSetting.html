@@ -15,6 +15,14 @@
   </ion-nav-title>
 
   <ion-content>
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="ProfileSetting.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+
     <div class="zero p10px color1-bb1px">
       <p class="zero mb10px">프로필 사진</p>
       <div class="row zero">

@@ -1500,16 +1500,6 @@ ion-view{
   }
 }
 
-#eventfitmate-write{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 /**
 * Created by Applicat - DevTeam on 05/01/16
 * As part of MyFitMate
@@ -1524,6 +1514,16 @@ ion-view{
 #favorite-setting{
   ion-pane{
     background: url('../img/log_in_05.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#eventfitmate-write{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
     background-size: cover;
   }
 }
@@ -1720,12 +1720,12 @@ ion-view{
   }
 }
 
-#postinfo-list{
-  .bar-subheader{
+#postinfo-update {
+  .bar-subheader {
     background-image: none;
   }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
+  ion-content {
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
     background-size: cover;
   }
 }
@@ -1740,11 +1740,31 @@ ion-view{
   }
 }
 
-#postinfo-update {
-  .bar-subheader {
+#postinfo-list{
+  .bar-subheader{
     background-image: none;
   }
-  ion-content {
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-update{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
     background: url('../img/favoritesetting_03.jpg') no-repeat center center;
     background-size: cover;
   }
@@ -1790,27 +1810,7 @@ ion-view{
   }
 }
 
-#postquestion-list{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 #postquestion-write{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
-#postquestion-update{
   .bar-subheader{
     background-image: none;
   }

@@ -4,10 +4,12 @@
     .controller('PostInfoWriteController', PostInfoWriteController);
 
   PostInfoWriteController.$inject = [
+    '$scope',
     'PostInfoModel', 'PostInfoWriteModel', 'Post', 'U', 'Message'
   ];
 
   function PostInfoWriteController(
+    $scope,
     PostInfoModel, PostInfoWriteModel, Post, U, Message
   ) {
     var PostInfoWrite = this;
@@ -15,22 +17,28 @@
     PostInfoWrite.sendForm = sendForm;
 
 
+    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
     //====================================================
     //  Implementation
     //====================================================
+    function onBeforeLeave() {
+      PostInfoWriteModel.form.title = '';
+      PostInfoWriteModel.form.content = '';
+      PostInfoWriteModel.form.fitnessType = '';
+    }
+
     function sendForm() {
       Message.loading();
       return createPost()
         .then(function(createdPost) {
-          Message.hide();
           console.log("---------- createdPost ----------");
           console.log(createdPost);
+          return Message.alert('글작성 알림', '글을 성공적으로 작성하였습니다.');
         })
-        .then(function(){
-          U.goToState('Main.PostInfo.PostInfoList');
+        .then(function() {
+          U.goToState('Main.PostInfo.PostInfoList', null, 'back');
         })
         .catch(function(err) {
-          Message.hide();
           U.error(err);
         });
     }

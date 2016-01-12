@@ -52,7 +52,9 @@
           return Message.alert('글 수정 알림', '글수정을 완료하였습니다.');
         })
         .then(function() {
-          U.goToState('Main.PostFit.PostFitList');
+          U.goToState('Main.PostFitDetail', {
+            id: $state.params.id
+          }, 'back');
         })
         .catch(function(err) {
           U.error(err);

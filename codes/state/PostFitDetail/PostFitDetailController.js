@@ -158,6 +158,7 @@
           id: $state.params.id
         }
       };
+      Message.loading();
       return Post.destroy(queryWrapper).$promise
         .then(function(destroyedPost) {
           console.log("---------- destroyedPost ----------");
@@ -179,11 +180,13 @@
           content: PostFitDetail.commentContent
         }
       };
+      Message.loading();
       return Comment.create({}, queryWrapper).$promise
         .then(function(createdComment) {
           console.log("---------- createdComment ----------");
           console.log(createdComment);
           refresh();
+          return Message.alert('댓글달기 알림', '댓글을 성공적으로 작성하였습니다.');
         })
         .catch(function(err) {
           U.error(err);
@@ -196,11 +199,13 @@
           id: commentId
         }
       };
+      Message.loading();
       return Comment.destroy(queryWrapper).$promise
         .then(function(destroyedComment) {
           console.log("---------- destroyedComment ----------");
           console.log(destroyedComment);
           refresh();
+          return Message.alert('댓글 알림', '댓글을 성공적으로 삭제하였습니다.');
         })
         .catch(function(err) {
           U.error(err);

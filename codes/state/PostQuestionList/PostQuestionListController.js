@@ -14,8 +14,9 @@
   ) {
     var PostQuestionList = this;
     PostQuestionList.Model = PostQuestionListModel;
+    var initPromise;
     var noLoadingStates = [
-      'Main.PostQuestion.PostQuestionDetail'
+      'Main.PostQuestionDetail'
     ];
 
     PostQuestionList.loadMore = loadMore;
@@ -23,7 +24,6 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
 
     //====================================================
     // Initial Loading of a state;
@@ -31,46 +31,32 @@
     function onBeforeEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
         U.loading(PostQuestionListModel);
+        initPromise = init();
       }
     }
 
     function onAfterEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
-        return loadPost();
+        return initPromise
+          .then(function(postsWrapper) {
+            console.log("---------- postsWrapper ----------");
+            console.log(postsWrapper);
+            U.bindData(postsWrapper, PostQuestionListModel, 'posts');
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
+      } else {
+        U.freeze(false);
       }
     }
 
-    function onBeforeLeave() {
-      U.resetSlides();
-    }
-
     function refresh() {
-      loadPost();
-    }
-
-    function loadMore() {
-      var last = PostQuestionListModel.posts.length - 1;
-      return loadPost({
-        id: {
-          '<': PostQuestionListModel.posts[last].id
-        }
-      }, null, true /*appendData*/ );
-    }
-
-    //====================================================
-    //  Helper
-    //====================================================
-
-    function loadPost(extraQuery, extraOpertaion, appendTrue) {
-      return find(extraQuery)
+      return init()
         .then(function(postsWrapper) {
           console.log("---------- postsWrapper ----------");
           console.log(postsWrapper);
-          if (appendTrue) {
-            U.appendData(postsWrapper, PostQuestionListModel, 'posts');
-          } else {
-            U.bindData(postsWrapper, PostQuestionListModel, 'posts');
-          }
+          U.bindData(postsWrapper, PostQuestionListModel, 'posts');
         })
         .catch(function(err) {
           U.error(err);
@@ -78,6 +64,32 @@
         .finally(function() {
           U.broadcast($scope);
         });
+    }
+
+    function loadMore() {
+      var last = PostQuestionListModel.posts.length - 1;
+      return find({
+          id: {
+            '<': PostQuestionListModel.posts[last].id
+          }
+        })
+        .then(function(postsWrapper) {
+          U.appendData(postsWrapper, PostQuestionListModel, 'posts');
+        })
+        .catch(function(err) {
+          U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
+        });
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+
+    function init() {
+      return find();
     }
 
     //====================================================

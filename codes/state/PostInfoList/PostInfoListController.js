@@ -14,6 +14,7 @@
   ) {
     var PostInfoList = this;
     PostInfoList.Model = PostInfoListModel;
+    var initPromise;
     var noLoadingStates = [
       'Main.PostInfoDetail'
     ];
@@ -23,10 +24,17 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
-    $scope.$on('PostInfo:InfoChanged', function(){
-      U.loading(PostInfoModel);
-      loadPost();
+    $scope.$on('PostInfo:InfoChanged', function() {
+      U.loading(PostInfoListModel);
+      return init()
+        .then(function(postsWrapper) {
+          console.log("---------- postsWrapper ----------");
+          console.log(postsWrapper);
+          U.bindData(postsWrapper, PostInfoListModel, 'posts');
+        })
+        .catch(function(err) {
+          U.error(err);
+        });
     });
 
     //====================================================
@@ -35,46 +43,32 @@
     function onBeforeEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
         U.loading(PostInfoListModel);
+        initPromise = init();
       }
     }
 
     function onAfterEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
-        return loadPost();
+        return initPromise
+          .then(function(postsWrapper) {
+            console.log("---------- postsWrapper ----------");
+            console.log(postsWrapper);
+            U.bindData(postsWrapper, PostInfoListModel, 'posts');
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
+      } else {
+        U.freeze(false);
       }
     }
 
-    function onBeforeLeave(){
-      U.resetSlides();
-    }
-
-    function refresh(){
-      loadPost();
-    }
-
-    function loadMore() {
-      var last = PostInfoListModel.posts.length - 1;
-      return loadPost({
-        id: {
-          '<': PostInfoListModel.posts[last].id
-        }
-      }, null, true /*appendData*/ );
-    }
-
-    //====================================================
-    //  Helper
-    //====================================================
-
-    function loadPost(extraQuery, extraOpertaion, appendTrue) {
-      return find(extraQuery)
+    function refresh() {
+      return init()
         .then(function(postsWrapper) {
           console.log("---------- postsWrapper ----------");
           console.log(postsWrapper);
-          if (appendTrue) {
-            U.appendData(postsWrapper, PostInfoListModel, 'posts');
-          } else {
-            U.bindData(postsWrapper, PostInfoListModel, 'posts');
-          }
+          U.bindData(postsWrapper, PostInfoListModel, 'posts');
         })
         .catch(function(err) {
           U.error(err);
@@ -84,6 +78,31 @@
         });
     }
 
+    function loadMore() {
+      var last = PostInfoListModel.posts.length - 1;
+      return find({
+          id: {
+            '<': PostInfoListModel.posts[last].id
+          }
+        })
+        .then(function(postsWrapper) {
+          U.appendData(postsWrapper, PostInfoListModel, 'posts');
+        })
+        .catch(function(err) {
+          U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
+        });
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+
+    function init() {
+      return find();
+    }
 
     //====================================================
     //  REST
@@ -107,7 +126,7 @@
           var photosPromise = Preload.photos(postsWrapper.posts, 'Clouinary600', true, 'neverMind');
           return $q.all([postsWrapper, photosPromise]);
         })
-        .then(function(array){
+        .then(function(array) {
           var postsWrapper = array[0];
           return postsWrapper;
         });

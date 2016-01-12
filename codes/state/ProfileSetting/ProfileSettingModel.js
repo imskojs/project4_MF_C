@@ -14,10 +14,11 @@
 
     var Model = {
       imgLoading: false,
+      loading: false,
       form: {
         files: [],
         nickname: null,
-        location: null,
+        // location: null,
         height: null,
         weight: null,
         targetWeight: null

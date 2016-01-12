@@ -13,8 +13,11 @@
   ) {
 
     var Model = {
-      post: {},
-      loading: false
+      form: {
+        title: '',
+        content: '',
+        fitnessType: ''
+      }
     };
 
     return Model;

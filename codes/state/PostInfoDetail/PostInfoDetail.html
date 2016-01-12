@@ -51,8 +51,8 @@
       <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
       <div class="absolute top5px right30px zero">
         <button class="b0px r5px white bold positive-bg"
-          ng-if="AppStorage.user.owner === PostInfoDetail.Model.post.createdBy.id"
-          ng-click="PostInfoDetail.showBubble = !PostInfoDeatil.showBubble"
+          ng-if="AppStorage.user.id === PostInfoDetail.Model.post.createdBy.id"
+          ng-click="PostInfoDetail.showBubble = !PostInfoDetail.showBubble"
         >
           글관리
           <i class="icon ion-arrow-down-b"></i>
@@ -121,7 +121,7 @@
             </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-if="AppStorage.user.owner === comment.owner"
+            ng-if="AppStorage.user.id === comment.createdBy.id"
             ng-click="PostInfoDetail.destroyComment(comment.id)"
           >
           </button>
