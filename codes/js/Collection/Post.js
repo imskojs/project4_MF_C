@@ -1,13 +1,3 @@
-/**
- * Created by Seunghoon Ko on 10/10/2015
- * As part of applicat platform
- *
- * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
- *
- */
 (function(angular) {
   'use strict';
   angular.module('app')
@@ -15,26 +5,26 @@
 
   Post.$inject = [
     '$resource',
-    'SERVER_URL'
+    'SERVER_URL', 'Photo'
   ];
 
   function Post(
     $resource,
-    SERVER_URL
+    SERVER_URL, Photo
   ) {
 
     var postUrl = SERVER_URL + '/post' +
       '/:find' +
       '/:findOne' +
-      '/:create' +
-      '/:update' +
+      // '/:create' +
+      // '/:update' +
       '/:destroy';
 
     var params = {
       find: '@find',
       findOne: '@findOne',
-      create: '@create',
-      update: '@update',
+      // create: '@create',
+      // update: '@update',
       destroy: '@destroy'
     };
 
@@ -51,18 +41,18 @@
           findOne: 'findOne'
         }
       },
-      create: {
-        method: 'POST',
-        params: {
-          create: 'create'
-        }
-      },
-      update: {
-        method: 'PUT',
-        params: {
-          update: 'update'
-        }
-      },
+      // create: {
+      //   method: 'POST',
+      //   params: {
+      //     create: 'create'
+      //   }
+      // },
+      // update: {
+      //   method: 'PUT',
+      //   params: {
+      //     update: 'update'
+      //   }
+      // },
       destroy: {
         method: 'DELETE',
         params: {
@@ -72,8 +62,38 @@
     };
 
     var service = $resource(postUrl, params, actions);
+    service.create = create;
+    service.update = update;
 
     return service;
 
+    // (param: null, body: {files: base64[], query: {property: any}})
+    //=> Promise
+    function create(param, body) {
+      var photoPromise = Photo.post('/post/create', body, 'POST');
+      return {
+        $promise: photoPromise
+      };
+    }
+
+    // (param: null, body: {files: base64[], query: {property: any}})
+    //=> Promise
+    function update(param, body) {
+      var photoPromise = Photo.post('/post/update', body, 'PUT');
+      return {
+        $promise: photoPromise
+      };
+    }
+
   }
 })(angular);
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */

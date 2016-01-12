@@ -1,0 +1,22 @@
+<ion-view id="post-fit"
+  cache-view="true"
+  hide-back-button="true"
+>
+
+  <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
+    <select class="w100px h30px mr10px grey-b1px">
+      <option>서울특별시</option>
+    </select>
+    <select
+      class="w100px h30px grey-b1px"
+      ng-model="PostFit.Model.Location"
+      ng-options="Location.name for Location in PostFit.Model.Locations"
+      ng-change="PostFit.LocationChanged()"
+    >
+    </select>
+  </ion-header-bar>
+
+  <ion-nav-view name="PostFit">
+  </ion-nav-view>
+
+</ion-view>

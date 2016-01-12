@@ -1,0 +1,30 @@
+<ion-view id="post-event"
+  cache-view="true"
+  hide-back-button="true"
+>
+
+  <ion-header-bar class="bar-subheader row h40px zero darker-bg">
+    <p class="col flex zero color1 bold"
+      ng-click="goToState('Main.PostEvent.EventFitMateList', null, 'forward')"
+      ng-class="{
+        'white-bg': isState('Main.PostEvent.EventFitMateList'),
+        'color2-bb2px': isState('Main.PostEvent.EventFitMateList')
+      }"
+    >
+      MY FIT MATE 이벤트
+    </p>
+    <p class="col flex zero color1 bold"
+      ng-click="goToState('Main.PostEvent.EventCompanyList', null, 'forward')"
+      ng-class="{
+        'white-bg': isState('Main.PostEvent.EventCompanyList'),
+        'color2-bb2px': isState('Main.PostEvent.EventCompanyList')
+      }"
+    >
+      제휴 업체 이벤트
+    </p>
+  </ion-header-bar>
+
+  <ion-nav-view name="PostEvent">
+  </ion-nav-view>
+
+</ion-view>

@@ -596,6 +596,11 @@ img {
   color: $positive;
 }
 
+.ion-ios-email-outline::before{
+  font-size: 26px !important;
+  color: $white;
+}
+
 .spinner {
   svg {
     fill: $positive;
@@ -1266,6 +1271,24 @@ ion-view{
   }
 }
 
+#post-fit{
+  .bar-subheader{
+    background-image: none;
+  }
+}
+
+#post-info{
+  .bar-subheader{
+    background-image: none;
+  }
+}
+
+#post-question{
+  .bar-subheader{
+    background-image: none;
+  }
+}
+
 #bookingcancel-list{
 
 }
@@ -1367,7 +1390,117 @@ ion-view{
     }
 }
 
+#eventcompany-contact{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#eventcompany-detail{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
+  }
+}
+
+#eventcompany-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#eventfitmate-detail{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
+  }
+}
+
 #eventfitmate-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#eventfitmate-write{
   .bar-subheader{
     background-image: none;
   }
@@ -1465,66 +1598,15 @@ ion-view{
 }
 
 #place-detail{
-
-}
-
-#postfit-postevent{
-  .bar-subheader{
-    background-image: none;
-  }
   ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-
-    .bubble{
-      width: 250px;
-      height: 120px;
-      padding: 0px;
-      background: #FFFFFF;
-      -webkit-border-radius: 0px;
-      -moz-border-radius: 0px;
-      border-radius: 0px;
-      border: $color1 solid 2px;
+    .ion-ios-telephone-outline::before{
+      color: $color1;
+      font-weight: bold;
     }
-
-    .bubble:after{
-      content: '';
-      position: absolute;
-      border-style: solid;
-      border-width: 0 5px 5px;
-      border-color: $color1 transparent;
-      display: block;
-      width: 0;
-      z-index: 1;
-      top: -5px;
-      left: 105px;
+    .ion-compose::before{
+      color: $color1;
+      font-weight: bold;
     }
-
-
-    .ion-android-close::before{
-      font-size: 20px !important;
-      color: $positive;
-    }
-  }
-}
-
-#postevent-list{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-
-#place-contact{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
   }
 }
 
@@ -1578,7 +1660,17 @@ ion-view{
   }
 }
 
-#place-contact{
+#postfit-update {
+  .bar-subheader {
+    background-image: none;
+  }
+  ion-content {
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postfit-write{
   .bar-subheader{
     background-image: none;
   }
@@ -1648,6 +1740,16 @@ ion-view{
   }
 }
 
+#postinfo-update {
+  .bar-subheader {
+    background-image: none;
+  }
+  ion-content {
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
 #postquestion-detail{
   .bar-subheader{
     background-image: none;
@@ -1699,6 +1801,16 @@ ion-view{
 }
 
 #postquestion-write{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-update{
   .bar-subheader{
     background-image: none;
   }

@@ -14,45 +14,71 @@
   ) {
     var PlaceDetail = this;
     PlaceDetail.Model = PlaceDetailModel;
-    PlaceDetail.call = call;
-
+    var initPromise;
+    var noLoadingStates = ['Main.PlaceContact', 'Main.BookingList', 'Main.CouponDetail'];
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
+    PlaceDetail.call = call;
+    PlaceDetail.refresh = refresh;
     //====================================================
     // Initial Loading of a state;
     //====================================================
-    function call() {
-      return Link.call(PlaceDetailModel.place.phone);
-    }
-
     function onBeforeEnter() {
-      PlaceDetailModel.loading = true;
+      if (!U.areSiblingViews(noLoadingStates)) {
+        U.loading(PlaceDetailModel);
+        initPromise = init();
+      }
     }
 
     function onAfterEnter() {
-      var placePromise;
-      var couponsPromise;
-      placePromise = PlaceFindOne();
-      couponsPromise = CouponFind();
-      $q.all([placePromise, couponsPromise])
+      if (!U.areSiblingViews(noLoadingStates)) {
+        initPromise
+          .then(function(array) {
+            var place = array[0];
+            var couponsWrapper = array[1];
+            console.log("---------- place ----------");
+            console.log(place);
+            console.log("---------- coupons ----------");
+            console.log(couponsWrapper);
+            U.bindData(place, PlaceDetailModel, 'place');
+            U.bindData(couponsWrapper, PlaceDetailModel, 'coupons', true);
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
+      }
+    }
+
+    function call() {
+      var number = '' + PlaceDetailModel.place.phone;
+      return Link.call('0' + number);
+    }
+
+    function refresh() {
+      init()
         .then(function(array) {
           var place = array[0];
-          var coupons = array[1];
-          console.log("---------- place ----------");
-          console.log(place);
-          console.log("---------- coupons ----------");
-          console.log(coupons);
+          var couponsWrapper = array[1];
           U.bindData(place, PlaceDetailModel, 'place');
-          // U.bindData(couponsWrapper, PlaceDetailModel, 'coupons');
+          U.bindData(couponsWrapper, PlaceDetailModel, 'coupons');
         })
         .catch(function(err) {
           U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
         });
     }
 
+
+    function init() {
+      var placePromise = PlaceFindOne();
+      var couponsPromise = CouponFind();
+      return $q.all([placePromise, couponsPromise]);
+    }
     //====================================================
-    //  Implementations
+    // REST 
     //====================================================
     function PlaceFindOne(extraQuery) {
       var queryWrapper = {
@@ -66,7 +92,7 @@
       angular.extend(queryWrapper.query.where, extraQuery);
       return Place.findOne(queryWrapper).$promise
         .then(function(place) {
-          var photosPromise = Preload.photos(place, 'Cloudinary400', true);
+          var photosPromise = Preload.photos(place, 'Cloudinary400', true, 'neverMind');
           return $q.all([place, photosPromise]);
         })
         .then(function(array) {
@@ -75,7 +101,7 @@
         });
     }
 
-    function CouponFind() {
+    function CouponFind(extraQuery) {
       var queryWrapper = {
         query: {
           where: {
@@ -87,10 +113,11 @@
           populates: ['photos']
         }
       };
+      angular.extend(queryWrapper.query.where, extraQuery);
       return Coupon
         .find(queryWrapper).$promise
         .then(function(couponsWrapper) {
-          var photosPromise = Preload.photos(couponsWrapper.coupons, 'Cloudinary400', true);
+          var photosPromise = Preload.photos(couponsWrapper.coupons, 'Cloudinary400', true, 'neverMind');
           return $q.all([couponsWrapper, photosPromise]);
         })
         .then(function(array) {

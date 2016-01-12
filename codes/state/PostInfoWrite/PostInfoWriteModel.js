@@ -13,7 +13,8 @@
   ) {
 
     var Model = {
-
+      post: {},
+      loading: false
     };
 
     return Model;

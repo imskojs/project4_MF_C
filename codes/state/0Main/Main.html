@@ -30,9 +30,11 @@
               <p class="zero color0 f16px mt5px bold">
                 {{AppStorage.user.name || 'Kim Ji Hee'}}
               </p>
+<!--
               <p class="zero color0 f14px mt5px bold">
                 {{AppStorage.user.location || '서울'}}
               </p>
+ -->
               <div class="row zero mt5px">
                 <div class="col-auto">
                   <p class="zero white f14px">
@@ -88,12 +90,11 @@
           </div>
         </div>
 
-        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold"
-          ng-click="goToState('Main.ProfileSetting')"
-        >
+        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
           프로필 설정
         </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-click="goToState('Main.ProfileSetting', null, 'forward')"
           >
             프로필정보 설정하기
           </p>
@@ -135,7 +136,9 @@
         <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
           예약설정
         </p>
-          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold">
+          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+            ng-click="goToState('Main.BookingCancelList', null, 'forward')"
+          >
             예약취소
           </p>
 

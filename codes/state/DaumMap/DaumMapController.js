@@ -5,20 +5,21 @@
     .controller('DaumMapController', DaumMapController);
 
   DaumMapController.$inject = [
-    'DaumMapModel', 'Message',
+    'DaumMapModel', 'Message', 'U',
     '$ionicModal', '$scope', '$state', '$stateParams', '$timeout', '$window', '$rootScope'
   ];
 
   function DaumMapController(
-    DaumMapModel, Message,
+    DaumMapModel, Message, U,
     $ionicModal, $scope, $state, $stateParams, $timeout, $window, $rootScope
   ) {
 
     var daum = $window.daum;
     var DaumMap = this;
     DaumMap.Model = DaumMapModel;
-    DaumMap.searchType = "address";
+    var noLoadingStates = ['Main.PlaceDetail'];
 
+    DaumMap.searchType = "address";
     DaumMap.goToState = goToState;
 
 
@@ -44,19 +45,21 @@
     }
 
     function onAfterEnter() {
-      $timeout(function() {
-        DaumMapModel.domMap.relayout();
-      }, 20);
-      var latitude;
-      var longitude;
-      if ($state.params.id) {
-        DaumMapModel.findPlaceByIdThenDrawAPlace($stateParams.id);
-      } else if (DaumMapModel.selectedPlace.geoJSON &&
-        DaumMapModel.selectedPlace.geoJSON.coordinates) {
-        latitude = DaumMapModel.selectedPlace.geoJSON.coordinates[1];
-        longitude = DaumMapModel.selectedPlace.geoJSON.coordinates[0];
-        DaumMapModel.domMap.panTo(new daum.maps.LatLng(latitude + 0.01, longitude + 0.01));
-        DaumMapModel.domMap.panTo(new daum.maps.LatLng(latitude - 0.01, longitude - 0.01));
+      if(!U.areSiblingViews(noLoadingStates)){
+        $timeout(function() {
+          DaumMapModel.domMap.relayout();
+        }, 20);
+        var latitude;
+        var longitude;
+        if ($state.params.id) {
+          DaumMapModel.findPlaceByIdThenDrawAPlace($stateParams.id);
+        } else if (DaumMapModel.selectedPlace.geoJSON &&
+          DaumMapModel.selectedPlace.geoJSON.coordinates) {
+          latitude = DaumMapModel.selectedPlace.geoJSON.coordinates[1];
+          longitude = DaumMapModel.selectedPlace.geoJSON.coordinates[0];
+          DaumMapModel.domMap.panTo(new daum.maps.LatLng(latitude + 0.01, longitude + 0.01));
+          DaumMapModel.domMap.panTo(new daum.maps.LatLng(latitude - 0.01, longitude - 0.01));
+        }
       }
     }
 

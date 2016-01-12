@@ -1,13 +1,3 @@
-/**
- * Created by Seunghoon Ko on 10/10/2015
- * As part of applicat platform
- *
- * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
- *
- */
 // Dependencies
 //Cordova InAppBrowser
 //Cordova SocialSharing
@@ -40,9 +30,34 @@
     //Link.call(01011010101)
     // Output
     //phone call
-    function call(number) {
-      console.log(number);
-      $window.location.href = 'tel:' + number;
+    function call(phone) {
+      if (!phone) {
+        Message.alert('전화하기 알림', '전화가 없습니다.');
+        return false;
+      }
+      phone = String(phone);
+      if (phone[0] !== '0') {
+        phone = '0' + phone;
+      }
+      var phoneArray = phone.split('');
+      var indexParen = phoneArray.indexOf(')');
+      if (indexParen !== -1) {
+        phoneArray.splice(indexParen, 1);
+      }
+      var indexDash = phoneArray.indexOf('-');
+      if (indexDash !== -1) {
+        phoneArray.splice(indexDash, 1);
+      }
+      indexDash = phoneArray.indexOf('-');
+      if (indexDash !== -1) {
+        phoneArray.splice(indexDash, 1);
+      }
+      indexDash = phoneArray.indexOf('-');
+      if (indexDash !== -1) {
+        phoneArray.splice(indexDash, 1);
+      }
+      phone = phoneArray.join('');
+      $window.location.href = 'tel:' + phone;
     }
 
     //====================================================

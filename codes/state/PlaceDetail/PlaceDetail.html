@@ -2,6 +2,7 @@
   cache-view="true"
   hide-back-button="true"
   >
+
   <ion-nav-buttons side="left">
     <button class="button button-icon icon ion-android-arrow-back"
     ng-click="goBack()"
@@ -9,10 +10,15 @@
     </button>
   </ion-nav-buttons>
   <ion-nav-title>
-    {{PlaceDetail.Model.place.name}}
+    {{getParam('name')}}
   </ion-nav-title>
+
   <ion-content class="pt1px">
-    <div class="w100p h300vh flex-h light-grey-bg absolute pt100px"
+    <ion-refresher
+      on-refresh="PlaceDetail.refresh()"
+    >
+    </ion-refresher>
+    <div class="w100p h100vh flex-h light-grey-bg absolute pt100px"
       style="z-index: 2"
       ng-if="PlaceDetail.Model.loading"
     >
@@ -34,7 +40,7 @@
 
     <div class="pl3p pr3p pt5px pb5px"> <!-- container start -->
 
-      <p class="darker f16px bold">
+      <p class="darker f20px bold">
         {{PlaceDetail.Model.place.name}}
       </p>
 
@@ -52,6 +58,7 @@
 
         <div class="col zero flex grey-bl pt5px pb5px"
           ng-click="goToState('Main.PlaceContact', {
+            name: PlaceDetail.Model.place.name,
             place: getParam('id')
           }, 'forward')
           "
@@ -91,10 +98,13 @@
       <p class="zero mt3px mb3px">
         {{PlaceDetail.Model.place.address}}
       </p>
-      <div class="h300px w100p disabled"
+      <div class="h300px w100p"
         static-daum-map
-        longitude="{{PlaceDetail.Model.place.geoJSON.coordintates[1] || 127}}"
-        latitude="{{PlaceDetail.Model.place.geoJSON.coordintates[0] || 37.5}}"
+        marker-src="img/map_04.png"
+        marker-width="40"
+        marker-height="22"
+        longitude="{{PlaceDetail.Model.place.geoJSON.coordinates[0]}}"
+        latitude="{{PlaceDetail.Model.place.geoJSON.coordinates[1]}}"
       >
       </div>
 
@@ -121,7 +131,7 @@
         <div class="col-40 positive-bg flex r5px">
           <img class="fit w100p"
             alt="장소 메인 사진"
-            ng-src="{{coupon.photos[0].url | Cloudinary400}}" 
+            ng-src="{{coupon.photos[0].url | Cloudinary400}}"
           >
         </div>
         <div class="col zero ml5px pt5px">
@@ -152,5 +162,5 @@
 
     </div> <!-- container ends -->
   </ion-content>
-  
+
 </ion-view>

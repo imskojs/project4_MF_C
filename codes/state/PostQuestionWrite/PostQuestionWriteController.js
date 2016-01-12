@@ -4,45 +4,73 @@
     .controller('PostQuestionWriteController', PostQuestionWriteController);
 
   PostQuestionWriteController.$inject = [
-    'Locations', 'PostQuestionWriteModel', 'Message',
-    '$scope'
+    'PostQuestionWriteModel', 'Post', 'U', 'Message'
   ];
 
   function PostQuestionWriteController(
-    Locations, PostQuestionWriteModel, Message,
-    $scope
+    PostQuestionWriteModel, Post, U, Message
   ) {
     var PostQuestionWrite = this;
     PostQuestionWrite.Model = PostQuestionWriteModel;
-
     PostQuestionWrite.sendForm = sendForm;
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+
+
     //====================================================
     //  Implementation
     //====================================================
     function sendForm() {
       Message.loading();
-      Post.create({}, {
+      return createPost()
+        .then(function(createdPost) {
+          Message.hide();
+          console.log("---------- createdPost ----------");
+          console.log(createdPost);
+        })
+        .then(function(){
+          U.goToState('Main.PostQuestion.PostQuestionList');
+        })
+        .catch(function(err) {
+          Message.hide();
+          U.error(err);
+        });
+    }
+
+
+    //====================================================
+    //  REST
+    //====================================================
+    function createPost() {
+      var queryWrapper = {
+        query: {
           category: 'QUESTION-POST',
           title: PostQuestionWriteModel.form.title,
           content: PostQuestionWriteModel.form.content
-        }).$promise
-        .then(function(createdPost) {
-          console.log("---------- createdPost ----------");
-          console.log(createdPost);
-          Message.alert('궁금한 사항 상담 알림', '상담이 등록되었습니다.');
-        })
-        .catch(function(err) {
-          console.log("---------- err ----------");
-          console.log(err);
-          Message.alert();
+        }
+      };
+      return Post.create({}, queryWrapper).$promise
+        .then(function(dataWrapper) {
+          return dataWrapper.data;
         });
-
     }
-
-    function onBeforeLeave() {
-      PostQuestionWriteModel.title = '';
-      PostQuestionWriteModel.content = '';
-    }
+    //====================================================
+    //  Future use. Not applied yet.
+    //====================================================
+    // function create() {
+    //   var queryWrapper = {
+    //     query: {
+    //       where: {},
+    //       data: {
+    //         category: 'QUESTION-POST',
+    //         title: PostQuestionWriteModel.title,
+    //         content: PostQuestionWriteModel.content,
+    //         files: PostQuestionWriteModel.files
+    //       }
+    //     },
+    //   };
+    //   Post.create({}, queryWrapper).$promise
+    //     .then(function(dataWrapper) {
+    //       return dataWrapper.data;
+    //     });
+    // }
   }
 })();

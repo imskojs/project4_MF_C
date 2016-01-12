@@ -5,76 +5,104 @@
 
   PostQuestionListController.$inject = [
     '$scope', '$q', '$ionicScrollDelegate',
-    'PostQuestionListModel', 'U', 'Post'
+    'PostQuestionListModel', 'U', 'Post', 'Preload'
   ];
 
   function PostQuestionListController(
     $scope, $q, $ionicScrollDelegate,
-    PostQuestionListModel, U, Post
+    PostQuestionListModel, U, Post, Preload
   ) {
     var PostQuestionList = this;
     PostQuestionList.Model = PostQuestionListModel;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.PostQuestion.PostQuestionDetail'
+    ];
 
     PostQuestionList.loadMore = loadMore;
+    PostQuestionList.refresh = refresh;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
 
     //====================================================
     // Initial Loading of a state;
     //====================================================
     function onBeforeEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
-        $ionicScrollDelegate.scrollTop(false);
-        PostQuestionListModel.loading = true;
+      if (!U.hasPreviousStates(noLoadingStates)) {
+        U.loading(PostQuestionListModel);
       }
     }
 
     function onAfterEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
-        return find()
-          .then(function(postsWrapper) {
-            console.log("---------- postsWrapper ----------");
-            console.log(postsWrapper);
-            U.bindData(postsWrapper, PostQuestionListModel, 'posts');
-          })
-          .catch(U.error);
+      if (!U.hasPreviousStates(noLoadingStates)) {
+        return loadPost();
       }
+    }
+
+    function onBeforeLeave() {
+      U.resetSlides();
+    }
+
+    function refresh() {
+      loadPost();
     }
 
     function loadMore() {
       var last = PostQuestionListModel.posts.length - 1;
-      return find({
-          id: {
-            '<': PostQuestionListModel.posts[last].id
+      return loadPost({
+        id: {
+          '<': PostQuestionListModel.posts[last].id
+        }
+      }, null, true /*appendData*/ );
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+
+    function loadPost(extraQuery, extraOpertaion, appendTrue) {
+      return find(extraQuery)
+        .then(function(postsWrapper) {
+          console.log("---------- postsWrapper ----------");
+          console.log(postsWrapper);
+          if (appendTrue) {
+            U.appendData(postsWrapper, PostQuestionListModel, 'posts');
+          } else {
+            U.bindData(postsWrapper, PostQuestionListModel, 'posts');
           }
         })
-        .then(function(postsWrapper) {
-          U.appendData(postsWrapper, PostQuestionListModel, 'posts');
+        .catch(function(err) {
+          U.error(err);
         })
-        .catch(U.error)
         .finally(function() {
           U.broadcast($scope);
         });
     }
+
     //====================================================
-    //  Implementations
+    // REST
     //====================================================
-    function find(extraQuery) {
+    function find(extraQuery, extraOperation) {
       var queryWrapper = {
         query: {
-          category: 'FITNESS_TOGETHER',
+          where: {
+            category: 'QUESTION-POST'
+          },
           limit: 20,
-          sort: 'id DESC',
+          sort: 'createdAt DESC',
           populates: ['createdBy']
         }
       };
-      angular.extend(queryWrapper.query, extraQuery);
+      angular.extend(queryWrapper.query.where, extraQuery);
+      angular.extend(queryWrapper.query, extraOperation);
       return Post.find(queryWrapper).$promise
         .then(function(postsWrapper) {
-          console.log("---------- postsWrapper ----------");
-          console.log(postsWrapper);
+          var photosPromise = Preload.photos(postsWrapper.posts, 'Cloudinary600', true, 'neverMind');
+          return $q.all([postsWrapper, photosPromise]);
+        })
+        .then(function(array) {
+          var postsWrapper = array[0];
           return postsWrapper;
         });
     }

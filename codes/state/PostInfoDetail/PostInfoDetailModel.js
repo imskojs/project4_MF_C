@@ -12,7 +12,11 @@
 
   ) {
 
-    var Model = {};
+    var Model = {
+      loading: false,
+      post: {},
+      comments: []
+    };
 
     return Model;
   }

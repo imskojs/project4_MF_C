@@ -1,0 +1,19 @@
+<ion-view id="post-info"
+  cache-view="true"
+  hide-back-button="true"
+>
+
+  <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
+    <select
+      class="w200px h30px grey-b1px"
+      ng-model="PostInfo.Model.Info"
+      ng-options="Info.name for Info in PostInfo.Model.Infos"
+      ng-change="PostInfo.InfoChanged()"
+    >
+    </select>
+  </ion-header-bar>
+
+  <ion-nav-view name="PostInfo">
+  </ion-nav-view>
+
+</ion-view>

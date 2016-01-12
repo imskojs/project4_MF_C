@@ -26,7 +26,7 @@
             관심 분야 설정
           </p>
           <button class="button-clear absolute top0px bottom0px right0px"
-            ng-click="goToState('Main.Home')"
+            ng-click="goToState('Main.Home', null, 'forward')"
           >
             <i class="icon ion-android-close"></i>
           </button>
@@ -34,8 +34,10 @@
         <div class="zero center rb5px white-bg">
           <p class="zero pt10px pb10px f16px bold">관심 분야를 설정해 주세요.</p>
           <div class="zero mb10px">
-            <select>
-              <option>헬스 / 트레이닝</option>
+            <select class="grey-b1px w200px h30px"
+              ng-model="FavoriteSetting.Info"
+              ng-options="Info.name for Info in FavoriteSetting.Infos"
+            >
             </select>
           </div>
           <button class="button-clear mb10px positive-bb2px bold"

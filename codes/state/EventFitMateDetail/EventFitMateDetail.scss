@@ -5,5 +5,35 @@
   ion-content{
     background: url('../img/profile_03.png') no-repeat center center;
     background-size: cover;
+
+    .bubble{
+      width: 250px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+      border: $color1 solid 2px;
+    }
+
+    .bubble:after{
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 5px 5px;
+      border-color: $color1 transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -5px;
+      left: 105px;
+    }
+
+
+    .ion-android-close::before{
+      font-size: 20px !important;
+      color: $positive;
+    }
   }
 }

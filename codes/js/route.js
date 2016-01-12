@@ -58,7 +58,7 @@
       //  PlaceDetail
       //====================================================
       .state('Main.PlaceDetail', {
-        url: '/PlaceDetail/:id',
+        url: '/PlaceDetail/:name/:id',
         views: {
           Main: {
             templateUrl: 'state/PlaceDetail/PlaceDetail.html',
@@ -70,7 +70,7 @@
       //  PlaceContact
       //====================================================
       .state('Main.PlaceContact', {
-        url: '/PlaceContact/:place',
+        url: '/PlaceContact/:name/:place',
         views: {
           Main: {
             templateUrl: 'state/PlaceContact/PlaceContact.html',
@@ -103,12 +103,24 @@
         }
       })
       //====================================================
-      //  PostFitList
+      //  PostFit
       //====================================================
-      .state('Main.PostFitList', {
-        url: '/PostFitList',
+      .state('Main.PostFit', {
+        url: '/PostFit',
         views: {
           Main: {
+            templateUrl: 'state/1PostFit/PostFit.html',
+            controller: 'PostFitController as PostFit'
+          }
+        }
+      })
+      //====================================================
+      //  PostFitList
+      //====================================================
+      .state('Main.PostFit.PostFitList', {
+        url: '/PostFitList',
+        views: {
+          PostFit: {
             templateUrl: 'state/PostFitList/PostFitList.html',
             controller: 'PostFitListController as PostFitList'
           }
@@ -117,12 +129,24 @@
       //====================================================
       //  PostFitWrite
       //====================================================
-      .state('Main.PostFitWrite', {
-        url: '/PostFitWrite',
+      .state('Main.PostFit.PostFitWrite', {
+        url: '/PostFitWrite/:category',
         views: {
-          Main: {
+          PostFit: {
             templateUrl: 'state/PostFitWrite/PostFitWrite.html',
             controller: 'PostFitWriteController as PostFitWrite'
+          }
+        }
+      })
+      //====================================================
+      //  PostFitUpdate
+      //====================================================
+      .state('Main.PostFit.PostFitUpdate', {
+        url: '/PostFitUpdate/:id',
+        views: {
+          PostFit: {
+            templateUrl: 'state/PostFitUpdate/PostFitUpdate.html',
+            controller: 'PostFitUpdateController as PostFitUpdate'
           }
         }
       })
@@ -139,12 +163,24 @@
         }
       })
       //====================================================
-      //  PostInfoList
+      //  PostInfo
       //====================================================
-      .state('Main.PostInfoList', {
-        url: '/PostInfoList',
+      .state('Main.PostInfo', {
+        url: '/PostInfo',
         views: {
           Main: {
+            templateUrl: 'state/1PostInfo/PostInfo.html',
+            controller: 'PostInfoController as PostInfo'
+          }
+        }
+      })
+      //====================================================
+      //  PostInfoList
+      //====================================================
+      .state('Main.PostInfo.PostInfoList', {
+        url: '/PostInfoList',
+        views: {
+          PostInfo: {
             templateUrl: 'state/PostInfoList/PostInfoList.html',
             controller: 'PostInfoListController as PostInfoList'
           }
@@ -153,12 +189,24 @@
       //====================================================
       //  PostInfoWrite
       //====================================================
-      .state('Main.PostInfoWrite', {
+      .state('Main.PostInfo.PostInfoWrite', {
         url: '/PostInfoWrite',
         views: {
-          Main: {
+          PostInfo: {
             templateUrl: 'state/PostInfoWrite/PostInfoWrite.html',
             controller: 'PostInfoWriteController as PostInfoWrite'
+          }
+        }
+      })
+      //====================================================
+      //  PostInfoUpdate
+      //====================================================
+      .state('Main.PostInfo.PostInfoUpdate', {
+        url: '/PostInfoUpdate/:id',
+        views: {
+          PostInfo: {
+            templateUrl: 'state/PostInfoUpdate/PostInfoUpdate.html',
+            controller: 'PostInfoUpdateController as PostInfoUpdate'
           }
         }
       })
@@ -175,12 +223,24 @@
         }
       })
       //====================================================
-      //  PostQuestionList
+      //  PostQuestion
       //====================================================
-      .state('Main.PostQuestionList', {
-        url: '/PostQuestionList',
+      .state('Main.PostQuestion', {
+        url: '/PostQuestion',
         views: {
           Main: {
+            templateUrl: 'state/1PostQuestion/PostQuestion.html',
+            controller: 'PostQuestionController as PostQuestion'
+          }
+        }
+      })
+      //====================================================
+      //  PostQuestionList
+      //====================================================
+      .state('Main.PostQuestion.PostQuestionList', {
+        url: '/PostQuestionList',
+        views: {
+          PostQuestion: {
             templateUrl: 'state/PostQuestionList/PostQuestionList.html',
             controller: 'PostQuestionListController as PostQuestionList'
           }
@@ -189,12 +249,24 @@
       //====================================================
       //  PostQuestionWrite
       //====================================================
-      .state('Main.PostQuestionWrite', {
+      .state('Main.PostQuestion.PostQuestionWrite', {
         url: '/PostQuestionWrite',
         views: {
-          Main: {
+          PostQuestion: {
             templateUrl: 'state/PostQuestionWrite/PostQuestionWrite.html',
             controller: 'PostQuestionWriteController as PostQuestionWrite'
+          }
+        }
+      })
+      //====================================================
+      //  PostQuestionUpdate
+      //====================================================
+      .state('Main.PostQuestion.PostQuestionUpdate', {
+        url: '/PostQuestionUpdate/:id',
+        views: {
+          PostQuestion: {
+            templateUrl: 'state/PostQuestionUpdate/PostQuestionUpdate.html',
+            controller: 'PostQuestionUpdateController as PostQuestionUpdate'
           }
         }
       })
@@ -213,15 +285,19 @@
       //====================================================
       //  PostEventList
       //====================================================
-      .state('PostEvent', {
+      .state('Main.PostEvent', {
         url: '/PostEvent',
-        templateUrl: 'state/0PostEvent/PostEvent.html',
-        controller: 'PostEventController as PostEvent'
+        views: {
+          Main: {
+            templateUrl: 'state/1PostEvent/PostEvent.html',
+            controller: 'PostEventController as PostEvent'
+          }
+        }
       })
       //====================================================
       //  EventFitMateList
       //====================================================
-      .state('PostEvent.EventFitMateList', {
+      .state('Main.PostEvent.EventFitMateList', {
         url: '/EventFitMateList',
         views: {
           PostEvent: {
@@ -245,7 +321,7 @@
       //====================================================
       //  EventCompanyList
       //====================================================
-      .state('PostEvent.EventCompanyList', {
+      .state('Main.PostEvent.EventCompanyList', {
         url: '/EventCompanyList',
         views: {
           PostEvent: {
@@ -255,24 +331,24 @@
         }
       })
       //====================================================
-      //  EventCompanyWrite
+      //  EventCompanyContact
       //====================================================
-      .state('PostEvent.EventCompanyWrite', {
-        url: '/EventCompanyWrite',
+      .state('Main.EventCompanyContact', {
+        url: '/EventCompanyContact',
         views: {
-          PostEvent: {
-            templateUrl: 'state/EventCompanyWrite/EventCompanyWrite.html',
-            controller: 'EventCompanyWriteController as EventCompanyWrite'
+          Main: {
+            templateUrl: 'state/EventCompanyContact/EventCompanyContact.html',
+            controller: 'EventCompanyContactController as EventCompanyContact'
           }
         }
       })
       //====================================================
       //  EventCompanyDetail
       //====================================================
-      .state('PostEvent.EventCompanyDetail', {
+      .state('Main.EventCompanyDetail', {
         url: '/EventCompanyDetail/:id',
         views: {
-          PostEvent: {
+          Main: {
             templateUrl: 'state/EventCompanyDetail/EventCompanyDetail.html',
             controller: 'EventCompanyDetailController as EventCompanyDetail'
           }

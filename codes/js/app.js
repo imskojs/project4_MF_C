@@ -30,7 +30,12 @@
     angular.extend($rootScope, RootScope);
     if (DEV_MODE) {
       setInitialState();
+      // createdBy: {owner: 123}
+      $rootScope.AppStorage.user = {
+        owner: "567a48b25c7d797246bd06c5"
+      };
     }
+
     $ionicPlatform.ready(onIonicPlatformReady);
 
     //====================================================
@@ -54,10 +59,8 @@
         $state.go('Main.WalkThrough');
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
-        $state.go('PostEvent.EventCompanyList', {
-          id: '55a9f3fe3523f5303afaea30'
-        });
-        // $state.go('Main.BookingList');
+        $state.go('Main.PostFit.PostFitList');
+        // $state.go('Main.Home');
       } else {
         // Normal user logic
         $state.go('Main.Home');

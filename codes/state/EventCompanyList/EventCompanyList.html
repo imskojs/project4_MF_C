@@ -3,23 +3,68 @@
   hide-back-button="true"
 >
 
-  <ion-content class="top84px">
+  <ion-nav-buttons side="left">
+    <button class="button button-clear icon ion-android-arrow-back"
+      ng-click="goToState('Main.Home', null, 'back')"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    이벤트
+  </ion-nav-title>
+
+  <ion-header-bar class="bar-subheader flex row top84px h40px zero color1-bg">
+    <p class="flex w200px h30px zero r5px white bold darker-bg"
+      ng-click="goToState('Main.EventCompanyContact')"
+    >
+      <i class="icon ion-ios-email-outline mr5px "></i>
+      제휴 업체 이벤트 문의하기
+    </p>
+  </ion-header-bar>
+
+  <ion-content class="top124px">
+    <ion-refresher
+      on-refresh="EventCompanyList.refresh()"
+    >
+    </ion-refresher>
+
+    <div class="w100p h95vh flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="EventCompanyList.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+      </ion-spinner>
+    </div>
+
     <div class="zero pt10px pb10px color1-bb1px"
-      ng-click="goToState('Main.EventFitMateDetail')"
+      ng-repeat="post in EventCompanyList.Model.posts"
+      ng-click="goToState('Main.EventCompanyDetail', {id: post.id}, 'forward')"
     >
       <div class="w90p zero auto">
         <p class="zero mb10px f16px darker bold text-overflow">
-          강남구 역삼동 같이 요가 하실 여성 분 찾아요~
+          {{ post.title}}
         </p>
         <div class="flex-v zero f12px grey text-overflow">
-          <p class="zero pr5px color5">Lee Yeon Hee</p>
+          <p class="zero pr5px color5">
+            {{ post.createdBy.name || post.createdBy.nickname }}
+          </p>
           /
-          <p class="zero pl5px">2015.01.05 13: 30</p>
           <p class="zero pl5px">
-            조회<span>638</span>
+            {{post.createdAt | date:'yyyy.MM.dd HH:mm' }}
+          </p>
+          <p class="zero pl5px">
+            조회<span> {{ post.views || 0 }}</span>
           </p>
         </div>
       </div>
     </div>
+
+    <ion-infinite-scroll
+      on-infinite="EventCompanyList.loadMore()"
+      immediate-check="true"
+      ng-if="EventCompanyList.Model.more"
+    >
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

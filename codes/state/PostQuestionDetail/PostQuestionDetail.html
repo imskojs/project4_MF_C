@@ -13,11 +13,7 @@
     궁금하지?
   </ion-nav-title>
 
-  <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
-    <p class="zero color1 bold">궁금한 사항에 대해 상담해보세요</p>
-  </ion-header-bar>
-
-  <ion-content class="top84px">
+  <ion-content>
     <div class="w100p h95vh flex light-grey-bg absolute"
       style="z-index: 2"
       ng-if="PostQuestionDetail.Model.loading"
@@ -26,17 +22,26 @@
       </ion-spinner>
     </div>
 
+    <ion-refresher
+      on-refresh="PostQuestionDetail.refresh()"
+    >
+    </ion-refresher>
+
     <div class="zero pt10px pb10px color1-bb1px">
       <div class="w90p zero auto">
         <p class="zero mb10px f16px darker bold text-overflow">
-          강남구 역삼동 같이 요가 하실 여성 분 찾아요~
+          {{ PostQuestionDetail.Model.post.title }}
         </p>
         <div class="flex-v zero f12px grey text-overflow">
-          <p class="zero pr5px color5">Lee Yeon Hee</p>
+          <p class="zero pr5px color5">
+            {{ PostQuestionDetail.Model.post.createdBy.nickname }}
+          </p>
           /
-          <p class="zero pl5px">2015.01.05 13: 30</p>
           <p class="zero pl5px">
-            조회<span>638</span>
+            {{ PostQuestionDetail.Model.post.createdAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
+          <p class="zero pl5px">
+            조회<span>{{ PotQuestionDetail.Model.post.views || 0 }}</span>
           </p>
         </div>
       </div>
@@ -46,23 +51,24 @@
       <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
       <div class="absolute top5px right30px zero">
         <button class="b0px r5px white bold positive-bg"
-          ng-click="showBubble = !showBubble"
+          ng-if="AppStorage.user.owner === PostQuestionDetail.Model.post.createdBy.id"
+          ng-click="PostQuestionDetail.showBubble = !PostQuestionDetail.showBubble"
         >
           글관리
           <i class="icon ion-arrow-down-b"></i>
         </button>
       </div>
       <div class="zero absolute top35px right30px zero"
-        ng-show="showBubble"
+        ng-show="PostQuestionDetail.showBubble"
       >
         <div class="bubble row w120px h30px zero center bold">
           <p class="col zero lh26px"
-            ng-click=""
+            ng-click="goToState('Main.PostQuestion.PostQuestionUpdate', { id: getParam('id') }, 'forward')"
           >
             수정
           </p>
           <p class="col zero lh26px"
-            ng-click=""
+            ng-click="PostQuestionDetail.destroyPost()"
           >
             삭제
           </p>
@@ -70,29 +76,34 @@
       </div>
       <div class="zero ml30px pt20px pr30px pb20px pl30px color1-bl1px">
         <div class="flex-v zero mb10px">
-          <p class="zero pr5px f12px color5 bold">Lee Yeon Hee</p>
-          <p class="zero f10px grey">2015. 01. 01 15:30</p>
+          <p class="zero pr5px f12px color5 bold">
+            {{ PostQuestionDetail.Model.post.createdBy.nickname }}
+          </p>
+          <p class="zero f10px grey">
+            {{ PostQuestionDetail.Model.post.createdAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
         </div>
         <p class="zero f12px lh14px darker">
-          강남구 역삼동에 사는 이연희라고 합니다.
-          역삼동 파워 휘트니스에서 직장인 반 요가 클래스가 있는데, 수업이
-          끝나면 시간이 늦어 혼자 다니기가 고민되서요 ㅠ
-          같은 지역 사시는 여성 분들 중 같이 요가 배워보실분 찾습니다~
+          {{ PostQuestionDetail.Model.post.content }}
         </p>
       </div>
       <div class="flex-v absolute bottom5px left40px zero f12px darker bold">
         <i class="icon ion-chevron-up"></i>
         <p class="ml5px zero">
-          댓글 <span>96</span>
+          댓글 <span>{{ PostQuestionDetail.Model.post.commentsCount || 0 }}</span>
         </p>
       </div>
     </div>
 
     <div class="zero color1-bb1px grey-bg30">
       <div class="flex-v w90p pt10px pb10px zero auto">
-        <input class="h30px mr10px darker-b1px r3px white-bg"
-          type="text">
-        <button class="w90px h30px b0px r3px white bold black-bg">
+        <input class="h30px mr10px pl5px pr5px darker-b1px r3px white-bg"
+          type="text"
+          ng-model="PostQuestionDetail.commentContent"
+        >
+        <button class="w90px h30px b0px r3px white bold black-bg"
+          ng-click="PostQuestionDetail.createComment()"
+        >
           COMMENT
         </button>
       </div>
@@ -102,20 +113,31 @@
       >
         <div class="relative w90p zero auto">
           <div class="flex-v zero mb10px grey text-overflow">
-            <p class="zero pr5px f16px color5 bold">{{comment.createdBy.name}}</p>
+            <p class="zero pr5px f16px color5 bold">
+              {{ comment.createdBy.nickname }}
+            </p>
             /
-            <p class="zero pl5px f12px">{{comment.createdAt | date: 'yyyy.MM.dd HH:mm'}}</p>
+            <p class="zero pl5px f12px">
+              {{ comment.createdAt | date: 'yyyy.MM.dd HH:mm' }}
+            </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-click=""
+            ng-if="AppStorage.user.owner === comment.owner"
+            ng-click="PostQuestionDetail.destroyComment(comment.id)"
           >
           </button>
           <p class="zero f14px dark-grey">
-            {{comment.content}}
+            {{ comment.content }}
           </p>
         </div>
       </div>
-
     </div>
+
+    <ion-infinite-scroll
+      on-infinite="PostQuestionDetail.loadMoreComments()"
+      immediate-check="true"
+      ng-if="PostQuestionDetail.Model.more"
+    >
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

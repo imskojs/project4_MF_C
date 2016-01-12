@@ -1,3 +1,5 @@
+/* beautify preserve:start */
+
 (function(angular) {
   'use strict';
 
@@ -31,3 +33,4 @@
     ]);
 
 })(angular);
+/* beautify preserve:end */

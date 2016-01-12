@@ -63,38 +63,27 @@
 
     <p class="h25px zero lh25px white center bold positive-bg">추가 정보 입력 (선택사항)</p>
 
-    <div class="zero p10px color1-bb1px">
-      <p class="zero mb5px">거주지</p>
-      <select
-        ng-model="ProfileSetting.Model.form.locations"
-      >
-        <option value="" disabled selected>거주지를 선택해주세요</option>
-        <option value="{{option.text}}"
-          ng-repeat="option in ProfileSetting.Model.locations"
-        >
-          {{option.text}}
-        </option>
-      </select>
-    </div>
-
-    <div class="zero p10px color1-bb1px">
+    <div class="relative zero p10px color1-bb1px">
       <p class="zero mb5px">현재키</p>
-      <input class="color0-bb1px placeholder-darker"
-        type="text" placeholder="키를 입력해주세요"  
+      <input class="pr30px color0-bb1px placeholder-darker"
+        type="text" placeholder="키를 입력해주세요"
         ng-model="ProfileSetting.Model.form.height"
       >
+      <p class="absolute right15px bottom15px zero darker">cm</p>
     </div>
 
-    <div class="zero p10px color1-bb1px">
+    <div class="relative zero p10px color1-bb1px">
       <p class="zero mb5px">현재 몸무게 / 목표 몸무게</p>
-      <input class="color0-bb1px placeholder-darker"
-        type="text" placeholder="현재 몸무게를 입력해주세요" 
+      <input class="mb10px pr30px color0-bb1px placeholder-darker"
+        type="text" placeholder="현재 몸무게를 입력해주세요"
         ng-model="ProfileSetting.Model.form.weight"
       >
-      <input class="mb10px color0-bb1px placeholder-darker"
-        type="text" placeholder="목표 몸무게를 입력해주세요" 
+      <p class="absolute right20px bottom70px zero darker">kg</p>
+      <input class="mb10px pr30px color0-bb1px placeholder-darker"
+        type="text" placeholder="목표 몸무게를 입력해주세요"
         ng-model="ProfileSetting.Model.form.targetWeight"
       >
+      <p class="absolute right20px bottom25px zero darker">kg</p>
     </div>
 
     <div class="zero p10px">

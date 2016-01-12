@@ -15,16 +15,17 @@
 
   <ion-nav-buttons side="right">
     <button class="button icon ion-compose"
-      ng-click="goToState('Main.PostQuestionWrite')"
+      ng-click="goToState('Main.PostQuestion.PostQuestionWrite', null, 'forward')"
     >
     </button>
   </ion-nav-buttons>
 
-  <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
-    <p class="zero color1 bold">궁금한 사항에 대해 상담해보세요</p>
-  </ion-header-bar>
-
   <ion-content class="top84px">
+    <ion-refresher
+      on-refresh="PostQuestionList.refresh()"
+    >
+    </ion-refresher>
+
     <div class="w100p h95vh flex light-grey-bg absolute"
       style="z-index: 2"
       ng-if="PostQuestionList.Model.loading"
@@ -34,19 +35,23 @@
     </div>
 
     <div class="zero pt10px pb10px color1-bb1px"
-      ng-click="goToState('Main.PostQuestionDetail', {id: post.id})"
       ng-repeat="post in PostQuestionList.Model.posts"
+      ng-click="goToState('Main.PostQuestionDetail', {id: post.id}, 'forward')"
     >
       <div class="w90p zero auto">
         <p class="zero mb10px f16px darker bold text-overflow">
-          {{post.title}}
+          {{ post.title}}
         </p>
         <div class="flex-v zero f12px grey text-overflow">
-          <p class="zero pr5px color5">{{post.createdBy.name}}</p>
+          <p class="zero pr5px color5">
+            {{ post.createdBy.name || post.createdBy.nickname }}
+          </p>
           /
-          <p class="zero pl5px">{{post.createdAt | date: 'yyyy.MM.dd HH:mm'}}</p>
           <p class="zero pl5px">
-            조회<span>{{post.views}}</span>
+            {{ post.createdAt | date:'yyyy.MM.dd HH:mm' }}
+          </p>
+          <p class="zero pl5px">
+            조회<span> {{ post.views || 0 }}</span>
           </p>
         </div>
       </div>
@@ -54,7 +59,7 @@
 
     <ion-infinite-scroll
       on-infinite="PostQuestionList.loadMore()"
-      immediate-check="true"
+      immediate-check="false"
       ng-if="PostQuestionList.Model.more"
     >
     </ion-infinite-scroll>

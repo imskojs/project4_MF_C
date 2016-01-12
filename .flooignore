@@ -4,6 +4,9 @@
 *~
 extern/
 node_modules/
+platforms/
+plugins/
+codes/lib/
 tmp
 vendor/
 www/css/
@@ -13,4 +16,6 @@ www/view/
 www/img/
 codes/state/Samples/
 codes/TestStates/
+codes/scss/ionic.app.all.scss
+codes/scss/ionic.lib.all.scss
 .git/

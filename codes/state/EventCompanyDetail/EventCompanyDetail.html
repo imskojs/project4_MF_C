@@ -1,0 +1,124 @@
+<ion-view id="eventcompany-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    이벤트
+  </ion-nav-title>
+
+  <ion-content>
+    <div class="w100p h95vh flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostFitDetail.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+    <ion-refresher
+      on-refresh="EventCompanyDetail.refresh()"
+    >
+    </ion-refresher>
+
+    <div class="zero pt10px pb10px color1-bb1px">
+      <div class="w90p zero auto">
+        <p class="zero mb10px f16px darker bold text-overflow">
+          {{ EventCompanyDetail.Model.post.title }}
+        </p>
+        <div class="flex-v zero f12px grey text-overflow">
+          <p class="zero pr5px color5">
+            {{ EventCompanyDetail.Model.post.createdBy.nickname }}
+          </p>
+          /
+          <p class="zero pl5px">
+            {{ EventCompanyDetail.Model.post.createdAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
+          <p class="zero pl5px">
+            조회<span>{{ EventCompanyDetail.Model.post.views || 0 }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative zero positive-bg20">
+      <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
+      <div class="zero ml30px pt20px pr30px pb20px pl30px color1-bl1px">
+        <div class="flex-v zero mb10px">
+          <p class="zero pr5px f12px color5 bold">
+            {{ EventCompanyDetail.Model.post.createdBy.nickname }}
+          </p>
+          <p class="zero f10px grey">
+            {{ EventCompanyDetail.Model.post.createdAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
+        </div>
+        <div class="zero">
+          <img class="block w100p h240px mb10px"
+            ng-repeat="photo in EventCompanyDetail.Model.post.photos"
+            ng-src="{{photo.url}}"
+          >
+        </div>
+        <p class="zero f12px lh14px darker">
+          {{ EventCompanyDetail.Model.post.content }}
+        </p>
+      </div>
+      <div class="flex-v absolute bottom5px left40px zero f12px darker bold">
+        <i class="icon ion-chevron-up"></i>
+        <p class="ml5px zero">
+          댓글 <span>{{EventCompanyDetail.Model.post.commentsCount || 0}}</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="zero color1-bb1px grey-bg30">
+      <div class="flex-v w90p pt10px pb10px zero auto">
+        <input class="h30px mr10px darker-b1px r3px white-bg"
+          type="text"
+          ng-model="EventCompanyDetail.commentContent"
+        >
+        <button class="w90px h30px b0px r3px white bold black-bg"
+          ng-click="EventCompanyDetail.createComment()"
+        >
+          COMMENT
+        </button>
+      </div>
+
+      <div class="zero pt10px pb10px grey-bb1px"
+        ng-repeat="comment in EventCompanyDetail.Model.comments"
+      >
+        <div class="relative w90p zero auto">
+          <div class="flex-v zero mb10px grey text-overflow">
+            <p class="zero pr5px f16px color5 bold">
+              {{ comment.createdBy.nickname }}
+            </p>
+            /
+            <p class="zero pl5px f12px">
+              {{ comment.createdAt | date: 'yyyy.MM.dd HH:mm' }}
+            </p>
+          </div>
+          <button class="button-clear ion-android-close absolute top0px right0px"
+            ng-if="AppStorage.user.owner === comment.owner"
+            ng-click="EventCompanyDetail.destroyComment(comment.id)"
+          >
+          </button>
+          <p class="zero f14px dark-grey">
+            {{ comment.content }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ion-infinite-scroll
+      on-infinite="EventCompanyDetail.loadMoreComments()"
+      immediate-check="true"
+      ng-if="EventCompanyDetail.Model.more"
+    >
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

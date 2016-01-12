@@ -148,7 +148,7 @@
     //    title: '포스트 이름',
     //    content: '냠냠냠'
     //  },
-    //  POST
+    //  'POST'
     //)
     //  Promise with with response from server:
     // Output usage:
@@ -161,6 +161,11 @@
     //  })
     function post(url, form, method) {
       var filesToSend = [];
+      if (!form.files) {
+        form.files = [];
+      } else if (!Array.isArray(form.files)) {
+        form.files = [];
+      }
       angular.forEach(form.files, function(base64File) {
         if (base64File != null) {
           filesToSend.push(base64ToFile(base64File));

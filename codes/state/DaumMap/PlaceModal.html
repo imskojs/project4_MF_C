@@ -18,7 +18,10 @@
       </div>
 
       <div class="r2 row row-content zero radius-bottom relative"
-        ng-click="DaumMap.goToState('Main.PlaceDetail', {id: DaumMap.Model.selectedPlace.id})"
+        ng-click="DaumMap.goToState('Main.PlaceDetail', {
+          id: DaumMap.Model.selectedPlace.id,
+          name: DaumMap.Model.selectedPlace.name
+        }, 'forward')"
       >
         <div class="c1 col zero radius-bottom">
           <img class="radius-bottom lazy-show"

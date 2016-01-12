@@ -16,12 +16,12 @@
 
   BookingListController.$inject = [
     '$scope', '$ionicModal', '$state',
-    'BookingListModel'
+    'BookingListModel', 'U'
   ];
 
   function BookingListController(
     $scope, $ionicModal, $state,
-    BookingListModel
+    BookingListModel, U
   ) {
 
     /***********************************

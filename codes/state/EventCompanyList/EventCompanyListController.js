@@ -14,65 +14,98 @@
   ) {
     var EventCompanyList = this;
     EventCompanyList.Model = EventCompanyListModel;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.EventCompanyContact', 'Main.EventCompanyDetail'
+    ];
 
     EventCompanyList.loadMore = loadMore;
+    EventCompanyList.refresh = refresh;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
 
     //====================================================
     // Initial Loading of a state;
     //====================================================
     function onBeforeEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
-        EventCompanyListModel.posts = [];
-        $ionicScrollDelegate.scrollTop(false);
-        EventCompanyListModel.loading = true;
+      if (!U.hasPreviousStates(noLoadingStates)) {
+        U.loading(EventCompanyListModel);
       }
     }
 
     function onAfterEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
-        return find()
-          .then(function(postsWrapper) {
-            console.log(postsWrapper);
-            U.bindData(postsWrapper, EventCompanyListModel, 'posts');
-          })
-          .catch(U.error);
+      if (!U.hasPreviousStates(noLoadingStates)) {
+        return loadPost();
       }
+    }
+
+    function onBeforeLeave() {
+      U.resetSlides();
+    }
+
+    function refresh() {
+      loadPost();
     }
 
     function loadMore() {
       var last = EventCompanyListModel.posts.length - 1;
-      return find({
-          olderThan: EventCompanyListModel.posts[last].id
-        })
+      return loadPost({
+        id: {
+          '<': EventCompanyListModel.posts[last].id
+        }
+      }, null, true /*appendData*/ );
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+
+    function loadPost(extraQuery, extraOpertaion, appendTrue) {
+      return find(extraQuery)
         .then(function(postsWrapper) {
-          U.appendData(postsWrapper, EventCompanyListModel, 'posts');
+          console.log("---------- postsWrapper ----------");
+          console.log(postsWrapper);
+          if (appendTrue) {
+            U.appendData(postsWrapper, EventCompanyListModel, 'posts');
+          } else {
+            U.bindData(postsWrapper, EventCompanyListModel, 'posts');
+          }
         })
-        .catch(U.error)
+        .catch(function(err) {
+          U.error(err);
+        })
         .finally(function() {
           U.broadcast($scope);
         });
     }
+
     //====================================================
-    //  Implementations
+    // REST
     //====================================================
-    function find(extraQuery) {
+    function find(extraQuery, extraOperation) {
       var queryWrapper = {
         query: {
-          category: 'FITNESS_TOGETHER',
+          where: {
+            category: 'EVENT-POST',
+            eventType: 'COMPANY-EVENT'
+          },
           limit: 20,
-          sort: 'id DESC',
+          sort: 'createdAt DESC',
           populates: ['createdBy']
         }
       };
-      angular.extend(queryWrapper.query, extraQuery);
+      angular.extend(queryWrapper.query.where, extraQuery);
+      angular.extend(queryWrapper.query, extraOperation);
       return Post.find(queryWrapper).$promise
         .then(function(postsWrapper) {
-          return postsWrapper;
+          var photosPromise = Preload.photos(postsWrapper.posts, 'Cloudinary600', true, 'neverMind');
+          return $q.all([postsWrapper, photosPromise]);
         })
+        .then(function(array) {
+          var postsWrapper = array[0];
+          return postsWrapper;
+        });
     }
 
   }

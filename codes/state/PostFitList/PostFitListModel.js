@@ -2,17 +2,20 @@
   'use strict';
 
   angular.module('app')
-    .factory('PostFitDetailModel', PostFitDetailModel);
+    .factory('PostFitListModel', PostFitListModel);
 
-  PostFitDetailModel.$inject = [
+  PostFitListModel.$inject = [
 
   ];
 
-  function PostFitDetailModel(
+  function PostFitListModel(
 
   ) {
 
-    var Model = {};
+    var Model = {
+      loading: false,
+      posts: []
+    };
 
     return Model;
   }

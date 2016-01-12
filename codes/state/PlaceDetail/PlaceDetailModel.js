@@ -29,7 +29,10 @@
         title: 'test',
         content: 'test test',
         createdAt: null,
-        photos: []
+        photos: [],
+        geoJSON: {
+          coordinates: []
+        }
       },
       coupons: [{
         id: 10,

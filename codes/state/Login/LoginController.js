@@ -41,7 +41,7 @@
      *           Implementation
      ***********************************/
     function successLogin(){
-      $state.go('FavoriteSetting');
+      $state.go('FavoriteSetting', null, 'forward');
     }
   }
 })(angular);

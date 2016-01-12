@@ -30,7 +30,7 @@
 
       <div class="w90p auto zero pt10px pb10px">
         <div class="zero mb10px"
-          ng-click="goToState('Main.DaumMap')"
+          ng-click="goToState('Main.DaumMap', null, 'forward')"
         >
           <div class="relative w100p zero rt5px center positive-bg">
             <p class="h40px zero f18px lh40px white bold">
@@ -47,15 +47,13 @@
 
         <div class="row zero mb10px">
           <div class="col-48 zero mr4p"
-            ng-click=""
+            ng-click="goToState('Main.PostFit.PostFitList', null, 'forward')"
           >
             <div class="relative w100p zero rt5px center positive-bg">
               <p class="h40px zero pl20px f18px lh40px white bold">
                 나랑운동하자
               </p>
-              <button class="button-clear absolute top0px bottom0px left0px"
-                ng-click="goToState('Main.Home')"
-              >
+              <button class="button-clear absolute top0px bottom0px left0px">
                 <img class="w15px h20px" src="img/mainpage_05.png">
               </button>
             </div>
@@ -65,15 +63,13 @@
           </div>
 
           <div class="col-48 zero"
-            ng-click=""
+            ng-click="goToState('Main.PostInfo.PostInfoList', null, 'forward')"
           >
             <div class="relative w100p zero rt5px center positive-bg">
               <p class="h40px zero pl20px f18px lh40px white bold">
                 운동사전
               </p>
-              <button class="button-clear absolute top0px bottom0px left0px"
-                ng-click="goToState('Main.Home')"
-              >
+              <button class="button-clear absolute top0px bottom0px left0px">
                 <img class="w20px h20px" src="img/mainpage_06.png">
               </button>
             </div>
@@ -85,7 +81,7 @@
 
         <div class="row zero">
           <div class="col-48 zero mr4p"
-            ng-click=""
+            ng-click="goToState('Main.PostQuestion.PostQuestionList', null, 'forward')"
           >
             <div class="relative w100p zero rt5px center positive-bg"
               ng-click""
@@ -93,9 +89,7 @@
               <p class="h40px zero pl20px f18px lh40px white bold">
                 궁금하지?
               </p>
-              <button class="button-clear absolute top0px bottom0px left0px"
-                ng-click="goToState('Main.Home')"
-              >
+              <button class="button-clear absolute top0px bottom0px left0px">
                 <img class="w20px h20px" src="img/mainpage_07.png">
               </button>
             </div>
@@ -105,7 +99,7 @@
           </div>
 
           <div class="col-48 zero"
-            ng-click=""
+            ng-click="goToState('Main.PostEvent.EventFitMateList', null, 'forward')"
           >
             <div class="relative w100p zero rt5px center positive-bg"
               ng-click""
@@ -113,9 +107,7 @@
               <p class="h40px zero pl20px f18px lh40px white bold">
                 이벤트
               </p>
-              <button class="button-clear absolute top0px bottom0px left0px"
-                ng-click="goToState('Main.Home')"
-              >
+              <button class="button-clear absolute top0px bottom0px left0px">
                 <img class="w20px h20px" src="img/mainpage_08.png">
               </button>
             </div>

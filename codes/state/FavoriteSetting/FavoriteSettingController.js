@@ -15,11 +15,11 @@
     .controller('FavoriteSettingController', FavoriteSettingController);
 
   FavoriteSettingController.$inject = [
-    'FavoriteSettingModel'
+    'FavoriteSettingModel', 'Infos'
   ];
 
   function FavoriteSettingController(
-    FavoriteSettingModel
+    FavoriteSettingModel, Infos
   ) {
 
     /***********************************
@@ -28,6 +28,9 @@
 
     var FavoriteSetting = this;
     FavoriteSetting.Model = FavoriteSettingModel;
+
+    FavoriteSetting.Infos = Infos;
+    FavoriteSetting.Info = FavoriteSetting.Infos[0];
 
     /***********************************
      *           Declaration

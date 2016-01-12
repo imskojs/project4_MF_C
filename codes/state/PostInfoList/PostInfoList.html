@@ -15,21 +15,17 @@
 
   <ion-nav-buttons side="right">
     <button class="button icon ion-compose"
-      ng-click="goToState('Main.PostInfoWrite')"
+      ng-click="goToState('Main.PostInfo.PostInfoWrite', null, 'forward')"
     >
     </button>
   </ion-nav-buttons>
 
-  <ion-header-bar class="bar-subheader flex h40px zero darker-bg">
-    <select
-      class="w200px h30px grey-b1px"
-      ng-model="PostInfoList.Info"
-      ng-options="Info.name for Info in PostInfoList.Infos"
-    >
-    </select>
-  </ion-header-bar>
-
   <ion-content class="top84px">
+    <ion-refresher
+      on-refresh="PostInfoList.refresh()"
+    >
+    </ion-refresher>
+
     <div class="w100p h95vh flex light-grey-bg absolute"
       style="z-index: 2"
       ng-if="PostInfoList.Model.loading"
@@ -39,27 +35,32 @@
     </div>
 
     <div class="zero pt10px pb10px color1-bb1px"
-      ng-click="goToState('Main.PostInfoDetail')"
+      ng-repeat="post in PostInfoList.Model.posts"
+      ng-click="goToState('Main.PostInfoDetail', { id: post.id }, 'forward')"
     >
       <div class="w90p zero auto">
         <p class="zero mb10px f16px darker bold text-overflow">
-          강남구 역삼동 같이 요가 하실 여성 분 찾아요~
+          {{ post.title }}
         </p>
         <div class="flex-v zero f12px grey text-overflow">
-          <p class="zero pr5px color5">Lee Yeon Hee</p>
+          <p class="zero pr5px color5">
+            {{ post.createdBy.name || post.createdBy.nickname }}
+          </p>
           /
-          <p class="zero pl5px">2015.01.05 13: 30</p>
           <p class="zero pl5px">
-            조회<span>638</span>
+            {{post.createdAt | date:'yyyy.MM.dd HH:mm'}}
+          </p>
+          <p class="zero pl5px">
+            조회<span> {{post.views || 0}}</span>
           </p>
         </div>
       </div>
     </div>
 
     <ion-infinite-scroll
-        on-infinite="postInfoList.loadMore()"
-        immediate-check="true"
-        ng-if="postInfoList.Model.more"
+      on-infinite="postInfoList.loadMore()"
+      immediate-check="true"
+      ng-if="postInfoList.Model.more"
     >
     </ion-infinite-scroll>
   </ion-content>

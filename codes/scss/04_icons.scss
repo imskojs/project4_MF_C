@@ -97,6 +97,11 @@
   color: $positive;
 }
 
+.ion-ios-email-outline::before{
+  font-size: 26px !important;
+  color: $white;
+}
+
 .spinner {
   svg {
     fill: $positive;

@@ -32,8 +32,6 @@
     var matching = /upload/;
     return function(input) {
       if (input) {
-        console.log("---------- input ----------");
-        console.log(input);
         var index = input.search(matching);
         if (index !== -1) {
           return input.substring(0, index) + 'upload/c_scale,w_' + size + '/' + input.substring(input.lastIndexOf('/'));

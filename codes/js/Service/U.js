@@ -1,13 +1,3 @@
-/**
- * Created by Seunghoon Ko on 10/10/2015
- * As part of applicat platform
- *
- * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
- *
- */
 (function(angular) {
   'use strict';
 
@@ -15,17 +5,18 @@
     .factory('U', U);
 
   U.$inject = [
-    '$ionicHistory', '$ionicScrollDelegate', '$timeout', '$filter',
+    '$ionicHistory', '$ionicScrollDelegate', '$timeout', '$filter', '$window', '$rootScope',
     '$ionicSideMenuDelegate', '$state', '$ionicViewSwitcher', '$ionicSlideBoxDelegate',
-    'Message', 'RootScope'
+    'Message', 'RootScope', 'Dom'
   ];
 
   function U(
-    $ionicHistory, $ionicScrollDelegate, $timeout, $filter,
+    $ionicHistory, $ionicScrollDelegate, $timeout, $filter, $window, $rootScope,
     $ionicSideMenuDelegate, $state, $ionicViewSwitcher, $ionicSlideBoxDelegate,
-    Message, RootScope
+    Message, RootScope, Dom
   ) {
 
+    var _ = $window._;
     var service = {
       isForwardView: isForwardView,
       isBackView: isBackView,
@@ -34,37 +25,44 @@
       resize: resize,
       update: update,
       resetSlides: resetSlides,
-      reset: reset,
       error: error,
       bindData: bindData,
       appendData: appendData,
-      broadcast: broadcast
+      broadcast: broadcast,
+      top: top,
+      freeze: freeze,
+      loading: loading,
+      hasPreviousStates: hasPreviousStates
     };
 
-    angular.extend(service, RootScope);
+    _.defaults(service, RootScope);
 
     return service;
 
+    // Within Parent State Stack
     function isForwardView(stateName) {
-      console.log($ionicHistory.viewHistory());
-      var isView =
-        $ionicHistory.viewHistory().forwardView &&
-        $ionicHistory.viewHistory().forwardView.stateName === stateName;
-      return isView;
+      if ($ionicHistory.viewHistory().forwardView) {
+        return $ionicHistory.viewHistory().forwardView.stateName === stateName;
+      } else {
+        return false;
+      }
     }
 
+    // Within Parent State Stack
     function isBackView(stateName) {
-      console.log($ionicHistory.viewHistory());
-      var isView =
-        $ionicHistory.viewHistory().backView &&
-        $ionicHistory.viewHistory().backView.stateName === stateName;
-      return isView;
+      if ($ionicHistory.viewHistory().backView) {
+        return $ionicHistory.viewHistory().backView.stateName === stateName;
+      } else {
+        return false;
+      }
     }
 
+    // Within Parent State Stack
     function isSiblingView(stateName) {
       return isForwardView(stateName) || isBackView(stateName);
     }
 
+    // Within Parent State Stack
     function areSiblingViews(stateNames) {
       var i;
       var stateName;
@@ -77,82 +75,128 @@
       return false;
     }
 
+    // Absolute previous State. Within or Without parent stack.
+    function hasPreviousStates(stateNames) {
+      if (stateNames.length === 0) {
+        return false;
+      }
+      var currentViewId = $ionicHistory.currentView().viewId.split('ion').pop();
+      var prevViewId = Number(currentViewId) - 1;
+      var prevViewKey = 'ion' + prevViewId;
+      var prevStateName = $ionicHistory.viewHistory().views[prevViewKey] &&
+        $ionicHistory.viewHistory().views[prevViewKey].stateName;
+      var hasPrevView = _.indexOf(stateNames, prevStateName) !== -1;
+      var hasSiblingView = areSiblingViews(stateNames);
+      if (hasPrevView) {
+        return true;
+      } else if (hasSiblingView) {
+        return true;
+      }
+      return false;
+    }
+
+    // update content scroll
     function resize() {
       $timeout(function() {
         $ionicScrollDelegate.resize();
       }, 0);
     }
 
+    // update slidebox
     function update() {
       $timeout(function() {
         $ionicSlideBoxDelegate.update();
       }, 0);
     }
 
+    // fix bug where prev slide number persist
     function resetSlides() {
       $ionicSlideBoxDelegate.slide(0, 0);
       $ionicSlideBoxDelegate.update();
     }
 
-    function reset(model) {
-      for (var key in model) {
-        if (Array.isArray(model[key])) {
-          model[key] = [];
-        } else if (model[key] !== null && typeof model[key] === 'object') {
-          model[key] = {};
-        } else if (typeof model[key] === 'boolean') {
-          model[key] = false;
-        } else {
-          model[key] = null;
-        }
-      }
-    }
-
     function error(err) {
-      Message.hide();
-      Message.alert();
       console.log(err);
+      freeze(false);
+      if (err.data && err.data.invalidAttributes && err.data.invalidAttributes.username) {
+        return Message.alert('회원가입 알림', '이미 존제하는 이메일입니다. 다른이메일을 입력해주세요.')
+          .then(function() {
+            Dom.focusById('email');
+          });
+      } else if (err.data && err.data.invalidAttributes && err.data.invalidAttributes.email) {
+        return Message.alert('회원가입 알림', '이미 존제하는 이메일입니다. 다른이메일을 입력해주세요.')
+          .then(function() {
+            Dom.focusById('email');
+          });
+      }
+      return Message.alert();
     }
 
-    function bindData(data, model, name, loadingModel) {
-      // if data is a dataWrapper
-      if (name[name.length - 1] === 's') {
-        model[name] = data[name];
-        model.more = data.more;
-        // if data is a data
-      } else {
-        model[name] = data;
-      }
-      update();
-      resize();
-      if (!loadingModel) {
-        $timeout(function() {
+    function bindData(data, model, name, emitEventTrue, loadingModel) {
+      $timeout(function() {
+        // if data is a dataWrapper
+        if (name[name.length - 1] === 's') {
+          model[name] = data[name];
+          model.more = data.more;
+        } else {
+          // if data is a data
+          model[name] = data;
+        }
+        if (!loadingModel) {
           model.loading = false;
-        }, 20);
-      } else {
-        $timeout(function() {
+          freeze(false);
+          update();
+          resize();
+        } else {
           loadingModel.loading = false;
-        }, 20);
-      }
+          freeze(false);
+          update();
+          resize();
+        }
+        if (emitEventTrue) {
+          $rootScope.$broadcast('$rootScope:bindDataComplete');
+        }
+      }, 0);
     }
 
-    function appendData(dataWrapper, model, name) {
-      if (name[name.length - 1] === 's') {
-        angular.forEach(dataWrapper[name], function(item) {
-          model[name].push(item);
-        });
-        model.more = dataWrapper.more;
-        resize();
-        // if data is a data
-      } else {
-        console.error('no dataWrapper.data perhaps dataWrapper is data.');
-      }
+    function appendData(dataWrapper, model, name, emitEventTrue) {
+      $timeout(function() {
+        if (name[name.length - 1] === 's') {
+          angular.forEach(dataWrapper[name], function(item) {
+            model[name].push(item);
+          });
+          model.more = dataWrapper.more;
+          freeze(false);
+          resize();
+          if (emitEventTrue) {
+            $rootScope.$broadcast('$rootScope:appendDataComplete');
+          }
+        } else {
+          // if data is a data
+          console.error('no dataWrapper.data perhaps dataWrapper is data.');
+        }
+      }, 0);
     }
 
     function broadcast($scope) {
       $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     }
+
+    function top() {
+      $ionicScrollDelegate.scrollTop(false);
+    }
+
+    function freeze(shouldFreezeTrue) {
+      $ionicScrollDelegate.freezeScroll(shouldFreezeTrue);
+    }
+
+    function loading(Model) {
+      Model.loading = true;
+      top();
+      freeze(true);
+    }
+
 
   } // Service END
 })(angular);
