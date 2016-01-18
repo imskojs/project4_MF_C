@@ -108,28 +108,38 @@
       >
       </div>
 
-      <p class="zero f14px mt10px color1 bold mb5px">
-        예약하기
-      </p>
-      <div class="date-picker-container shadow">
-        <datepicker class="date-picker"
-          ng-model="PlaceDetail.date"
-          show-weeks="false"
-          date-disabled="PlaceDetail.disablePast(date, mode)"
-        >
-        </datepicker>
+      <div ng-if="false">
+        <p class="zero f14px mt10px color1 bold mb5px">
+          예약하기
+        </p>
+        <div class="date-picker-container shadow">
+          <datepicker class="date-picker"
+            ng-model="PlaceDetail.date"
+            show-weeks="false"
+            date-disabled="PlaceDetail.disablePast(date, mode)"
+          >
+          </datepicker>
+        </div>
       </div>
 
       <p class="zero f14px color1 bold mt10px">
         사용 가능한 쿠폰
       </p>
-
+<!--       
+      <button class="button"
+        ng-if="DEV_MODE"
+        ng-click="PlaceDetail.createCoupon()"
+      >Create Coupon</button>
+ -->
       <div class="row zero positive-br5px mt5px r5px shadow"
         ng-repeat="coupon in PlaceDetail.Model.coupons"
-        ng-click="goToState('Main.CouponDetail', {id: coupon.id}, 'forward')"
+        ng-click="goToState('Main.CouponDetail', {
+          placeName: PlaceDetail.Model.place.name,
+          id: coupon.id
+        }, 'forward')"
       >
         <div class="col-40 positive-bg flex r5px">
-          <img class="fit w100p"
+          <img class="fit w100p lazy-show"
             alt="장소 메인 사진"
             ng-src="{{coupon.photos[0].url | Cloudinary400}}"
           >
@@ -144,8 +154,15 @@
           <p class="zero darker f14px mt15px">
             사용기간
           </p>
-          <p class="zero f14px">
+          <p class="zero f14px"
+            ng-if="coupon.expriationDate"
+          >
             {{coupon.expirationDate | date: 'yyyy.MM.dd'}} 까지
+          </p>
+          <p class="zero f14px"
+            ng-if="!coupon.expriationDate"
+          >
+            제한 없음
           </p>
           <div class="row zero mt5px pb5px">
             <div class="col-30">

@@ -9,7 +9,7 @@
   ];
 
   function MainController(
-    $scope, $state, $ionicSideMenuDelegate, $ionicModal, $cordovaSocialSharing,
+    $rootScope, $scope, $state, $ionicSideMenuDelegate, $ionicModal, $cordovaSocialSharing,
     MainModel, AppStorage
   ) {
 

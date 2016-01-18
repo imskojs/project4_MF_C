@@ -59,9 +59,8 @@
           </p>
         </div>
         <div class="zero">
-          <img class="block w100p h240px mb10px"
-            ng-repeat="photo in EventCompanyDetail.Model.post.photos"
-            ng-src="{{photo.url}}"
+          <img class="block w100p h240px mb10px lazy-show"
+            ng-src="{{EventCompanyDetail.Model.post.photos[0].url | Cloudinary500}}"
           >
         </div>
         <p class="zero f12px lh14px darker">
@@ -103,7 +102,7 @@
             </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-if="AppStorage.user.owner === comment.owner"
+            ng-if="AppStorage.user.id === comment.createdBy.id"
             ng-click="EventCompanyDetail.destroyComment(comment.id)"
           >
           </button>

@@ -15,16 +15,17 @@
           <i class="icon ion-ios-locked-outline"></i>
           <input class="pr10px pl10px placeholder-positive"
             type="password" placeholder="비밀번호"
+            ng-model="CouponDetail.Model.form.password"
           >
         </label>
         <p class="zero mt20px mb20px color1">쿠폰을 사용합니다</p>
         <div class="zero row dark-grey">
-          <div class="col-40 zero pr10px positive-br1px right">
-            <p class="zero">사용기간</p>
-            <p class="zero">남은수량</p>
-            <p class="zero">사용날짜</p>
+          <div class="col-45 zero pr5px positive-br1px right">
+            <p class="zero letter-spacing-1">사용 가능기간</p>
+            <p class="zero letter-spacing-1">남은수량</p>
+            <p class="zero letter-spacing-1">현재날짜</p>
           </div>
-          <div class="col zero pl10px left">
+          <div class="col zero pl5px left">
             <p class="zero">2015.09.30</p>
             <p class="zero">05</p>
             <p class="zero positive">2015.09.28</p>
@@ -32,7 +33,7 @@
         </div>
         <div class="zero mt30px">
           <button class="w80p h40px b0px white bold positive-bg"
-            ng-click=""
+            ng-click="CouponDetail.useCoupon()"
           >
             쿠폰사용
           </button>

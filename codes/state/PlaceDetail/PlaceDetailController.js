@@ -4,12 +4,12 @@
     .controller('PlaceDetailController', PlaceDetailController);
 
   PlaceDetailController.$inject = [
-    '$scope', '$state', '$q',
+    '$scope', '$state', '$q', '$rootScope',
     'PlaceDetailModel', 'Place', 'Message', 'U', 'Preload', 'Link', 'Coupon'
   ];
 
   function PlaceDetailController(
-    $scope, $state, $q,
+    $scope, $state, $q, $rootScope,
     PlaceDetailModel, Place, Message, U, Preload, Link, Coupon
   ) {
     var PlaceDetail = this;
@@ -21,6 +21,24 @@
 
     PlaceDetail.call = call;
     PlaceDetail.refresh = refresh;
+    PlaceDetail.createCoupon = function() {
+      return Coupon.create({}, {
+          title: 'test title',
+          content: 'test content',
+          quantity: 90,
+          password: 1234,
+          place: $state.params.id
+        }).$promise
+        .then(function(coupon) {
+          console.log("---------- coupon ----------");
+          console.log(coupon);
+        })
+        .catch(function(err) {
+          console.log("---------- err ----------");
+          console.log(err);
+        });
+    };
+
     //====================================================
     // Initial Loading of a state;
     //====================================================
@@ -47,6 +65,9 @@
           .catch(function(err) {
             U.error(err);
           });
+      } else {
+        U.freeze(false);
+        $rootScope.$broadcast('$rootScope:bindDataComplete');
       }
     }
 
@@ -106,9 +127,9 @@
         query: {
           where: {
             place: $state.params.id,
-            quantity: {
-              '>': 0
-            }
+            // quantity: {
+            //   '>': 0
+            // }
           },
           populates: ['photos']
         }

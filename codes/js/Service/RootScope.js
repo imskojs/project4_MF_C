@@ -25,13 +25,13 @@
   RootScope.$inject = [
     '$state', '$stateParams', '$ionicHistory', '$ionicSideMenuDelegate', '$timeout',
     '$rootScope', '$ionicViewSwitcher',
-    'DEV_MODE', 'Message', 'AppStorage'
+    'DEV_MODE', 'Message', 'AppStorage', 'Link'
   ];
 
   function RootScope(
     $state, $stateParams, $ionicHistory, $ionicSideMenuDelegate, $timeout,
     $rootScope, $ionicViewSwitcher,
-    DEV_MODE, Message, AppStorage
+    DEV_MODE, Message, AppStorage, Link
   ) {
     var service = {
       AppStorage: AppStorage,
@@ -49,6 +49,7 @@
       toggleSideMenu: toggleSideMenu,
       closeSideMenu: closeSideMenu,
       comingSoon: comingSoon,
+      Link: Link,
       DEV_MODE: DEV_MODE
     };
 
@@ -108,6 +109,7 @@
     //  $rootScope.goBack();
     //====================================================
     function goBack(direction) {
+      Message.hide();
       if (direction) {
         $ionicViewSwitcher.nextDirection(direction);
       }

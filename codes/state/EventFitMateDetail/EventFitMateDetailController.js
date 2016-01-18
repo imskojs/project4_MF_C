@@ -14,6 +14,7 @@
   ) {
     var EventFitMateDetail = this;
     EventFitMateDetail.Model = EventFitMateDetailModel;
+    var initPromise;
     var noLoadingStates = [];
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
@@ -30,21 +31,44 @@
     function onBeforeEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
         U.loading(EventFitMateDetailModel);
+        initPromise = init();
       }
     }
 
     function onAfterEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
-        loadAll();
+        return initPromise
+          .then(function(array) {
+            var post = array[0];
+            var commentsWrapper = array[1];
+            U.bindData(post, EventFitMateDetailModel, 'post');
+            U.bindData(commentsWrapper, EventFitMateDetailModel, 'comments');
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
       }
     }
 
     function onBeforeLeave() {
       U.resetSlides();
+      EventFitMateDetail.commentContent = '';
     }
 
     function refresh() {
-      loadAll();
+      return init()
+        .then(function(array) {
+          var post = array[0];
+          var commentsWrapper = array[1];
+          U.bindData(post, EventFitMateDetailModel, 'post');
+          U.bindData(commentsWrapper, EventFitMateDetailModel, 'comments');
+        })
+        .catch(function(err) {
+          U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
+        });
     }
 
     function loadMoreComments() {
@@ -69,21 +93,8 @@
     //  Helper
     //====================================================
 
-    function loadAll() {
-      EventFitMateDetail.commentContent = '';
-      return $q.all([findOnePost(), findComments()])
-        .then(function(array) {
-          var post = array[0];
-          var commentsWrapper = array[1];
-          U.bindData(post, EventFitMateDetailModel, 'post');
-          U.bindData(commentsWrapper, EventFitMateDetailModel, 'comments');
-        })
-        .catch(function(err) {
-          U.error(err);
-        })
-        .finally(function() {
-          U.broadcast($scope);
-        });
+    function init() {
+      return $q.all([findOnePost(), findComments()]);
     }
 
     //====================================================
@@ -95,7 +106,7 @@
           where: {
             id: $state.params.id,
           },
-          populates: ['createdBy']
+          populates: ['createdBy', 'photos']
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
@@ -144,11 +155,16 @@
           content: EventFitMateDetail.commentContent
         }
       };
+      Message.loading();
       return Comment.create({}, queryWrapper).$promise
         .then(function(createdComment) {
           console.log("---------- createdComment ----------");
           console.log(createdComment);
           refresh();
+          return Message.alert('댓글달기 알림', '댓글을 성공적으로 작성하였습니다.');
+        })
+        .then(function() {
+          EventFitMateDetail.commentContent = '';
         })
         .catch(function(err) {
           U.error(err);
@@ -161,11 +177,13 @@
           id: commentId
         }
       };
+      Message.loading();
       return Comment.destroy(queryWrapper).$promise
         .then(function(destroyedComment) {
           console.log("---------- destroyedComment ----------");
           console.log(destroyedComment);
           refresh();
+          return Message.alert('댓글 알림', '댓글을 성공적으로 삭제하였습니다.');
         })
         .catch(function(err) {
           U.error(err);

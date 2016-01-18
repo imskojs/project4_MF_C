@@ -23,7 +23,8 @@
       '/:like' +
 
       '/:findNative' +
-      '/:contactOwner';
+      '/:contactOwner' +
+      '/:createCoupon';
 
     var params = {
       find: '@find',
@@ -35,7 +36,8 @@
       like: '@like',
 
       findNative: '@findNative',
-      contactOwner: '@contactOwner'
+      contactOwner: '@contactOwner',
+      createCoupon: '@createCoupon'
     };
 
     var actions = {
@@ -101,6 +103,13 @@
         method: 'POST',
         params: {
           contactOwner: 'contactOwner'
+        }
+      },
+
+      createCoupon: {
+        method: 'POST',
+        params: {
+          createCoupon: 'createCoupon'
         }
       }
 

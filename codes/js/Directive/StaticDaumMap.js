@@ -37,6 +37,10 @@
       // static daum map does not allow marker image to be set.
       // disabled class is added to normal daumMap to disable all touch events
       element.addClass('disabled' /*30_touched.scss*/ );
+      scope.$on('$ionicView.enter', function() {
+        console.log("---------- 'entered static' ----------");
+        console.log('entered static');
+      })
       scope.$on('$rootScope:bindDataComplete', function() {
         var markerSize = new daum.maps.Size(Number(attrs.markerWidth), Number(attrs.markerHeight));
         var markerImg = new daum.maps.MarkerImage(attrs.markerSrc, markerSize);

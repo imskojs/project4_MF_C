@@ -58,8 +58,8 @@
         $state.go('Main.WalkThrough');
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
-        $state.go('Main.PostEvent.EventFitMateList');
-        // $state.go('Main.Home');
+        $state.go('Login');
+        // $state.go('FavoriteSetting');
       } else {
         // Normal user logic
         $state.go('Main.Home');

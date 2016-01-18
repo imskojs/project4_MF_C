@@ -1,3 +1,13 @@
+/**
+ * Created by Seunghoon Ko on 10/10/2015
+ * As part of applicat platform
+ *
+ * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
+ *
+ */
 //  Dependencies
 //ng-file-uploead
 //cordovaCamera/
@@ -18,6 +28,7 @@
     SERVER_URL, Message, Upload
   ) {
 
+    var _ = $window._;
     $ionicModal.fromTemplateUrl('state/0Template/ImageCropModal.html', {
         id: '1',
         scope: $rootScope,
@@ -148,7 +159,7 @@
     //    title: '포스트 이름',
     //    content: '냠냠냠'
     //  },
-    //  'POST'
+    //  POST
     //)
     //  Promise with with response from server:
     // Output usage:
@@ -160,18 +171,14 @@
     //    $q.reject(err);
     //  })
     function post(url, form, method) {
+      var form_copy = _.clone(form);
       var filesToSend = [];
-      if (!form.files) {
-        form.files = [];
-      } else if (!Array.isArray(form.files)) {
-        form.files = [];
-      }
-      angular.forEach(form.files, function(base64File) {
+      angular.forEach(form_copy.files, function(base64File) {
         if (base64File != null) {
           filesToSend.push(base64ToFile(base64File));
         }
       });
-      delete form.files;
+      delete form_copy.files;
 
       if (url[0] !== '/') {
         url = '/' + url;
@@ -181,7 +188,7 @@
         url: SERVER_URL + url,
         method: method || 'POST',
         file: filesToSend,
-        fields: form,
+        fields: form_copy,
         header: {
           enctype: "multipart/form-data"
         }
@@ -232,22 +239,3 @@
     }
   } // End
 })(angular);
-
-
-
-
-
-
-
-
-
-/**
- * Created by Seunghoon Ko on 10/10/2015
- * As part of applicat platform
- *
- * Copyright (C) Applicat (www.applicat.co.kr) & Seunghoon Ko - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Seunghoon Ko <imskojs@gmail.com>, 10/10/2015
- *
- */

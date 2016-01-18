@@ -1,12 +1,17 @@
-#place-detail{
-  ion-content{
-    .ion-ios-telephone-outline::before{
+#place-detail {
+  ion-content {
+    .ion-ios-telephone-outline::before {
       color: $color1;
       font-weight: bold;
     }
-    .ion-compose::before{
+    .ion-compose::before {
       color: $color1;
       font-weight: bold;
     }
+  }
+  .platform-android,
+  .platform-ios & .activated {
+    background-color: white !important;
+    opacity: 0.7 !important;
   }
 }

@@ -5,12 +5,12 @@
 
   EventCompanyContactController.$inject = [
     '$state', '$scope',
-    'EventCompanyContactModel', 'Place', 'U'
+    'EventCompanyContactModel', 'User', 'U', 'Message', 'AppStorage'
   ];
 
   function EventCompanyContactController(
     $state, $scope,
-    EventCompanyContactModel, Place, U
+    EventCompanyContactModel, User, U, Message, AppStorage
   ) {
     var EventCompanyContact = this;
     EventCompanyContact.Model = EventCompanyContactModel;
@@ -22,14 +22,16 @@
     //  Implementation
     //====================================================
     function sendForm() {
-      Place.contactOwner({}, {
-          place: $state.params.place,
-          title: EventCompanyContactModel.title,
-          content: EventCompanyContactModel.content
-        }).$promise
+      Message.loading();
+      return contactAdmin()
         .then(function(messageWrapper) {
           console.log("---------- messageWrapper ----------");
           console.log(messageWrapper);
+          return Message.alert('이벤트 문의 알림', '이벤트 문의가 관리자에게 성공적으로 접수되었습니다.');
+        })
+        .then(function() {
+          reset();
+          U.goBack();
         })
         .catch(function(err) {
           U.error(err);
@@ -37,8 +39,29 @@
     }
 
     function onBeforeLeave() {
-      EventCompanyContactModel.title = '';
-      EventCompanyContactModel.content = '';
+      reset();
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+    function reset() {
+      EventCompanyContactModel.form.title = '';
+      EventCompanyContactModel.form.content = '';
+    }
+
+    //====================================================
+    //  REST
+    //====================================================
+    function contactAdmin() {
+      return User.contactAdmin({}, {
+          from: AppStorage.user.email || 'hongGilDong@hongGilDong.com',
+          title: EventCompanyContactModel.form.title,
+          content: EventCompanyContactModel.form.content
+        }).$promise
+        .then(function(messageWrapper) {
+          return messageWrapper;
+        });
     }
   }
 })();

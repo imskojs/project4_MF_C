@@ -17,7 +17,7 @@
         'BOXING',
         'CLIMBING'
       ],
-      selectedCategory: 'BOXING'
+      selectedCategory: ''
     };
 
     return model;

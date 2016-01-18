@@ -442,8 +442,8 @@ textarea {
 }
 
 .lazy-show {
-  -webkit-animation: lazyShowAnimation 1s;
-  animation: lazyShowAnimation 1s;
+  -webkit-animation: lazyShowAnimation 1.5s;
+  animation: lazyShowAnimation 1.5s;
 }
 
 img {
@@ -1263,6 +1263,9 @@ ion-view{
     background: url('../img/side_menu_01.jpg') no-repeat center center;
     background-size: cover;
   }
+  .white {
+    color: white;
+  }
 }
 
 #post-event{
@@ -1293,11 +1296,11 @@ ion-view{
 
 }
 
-#booking-list{
+#coupon-detail{
 
 }
 
-#coupon-detail{
+#booking-list{
 
 }
 
@@ -1518,16 +1521,6 @@ ion-view{
   }
 }
 
-#eventfitmate-write{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 /**
 * Created by Applicat - DevTeam on 05/01/16
 * As part of MyFitMate
@@ -1597,19 +1590,6 @@ ion-view{
   }
 }
 
-#place-detail{
-  ion-content{
-    .ion-ios-telephone-outline::before{
-      color: $color1;
-      font-weight: bold;
-    }
-    .ion-compose::before{
-      color: $color1;
-      font-weight: bold;
-    }
-  }
-}
-
 #postfit-detail{
   .bar-subheader{
     background-image: none;
@@ -1647,6 +1627,24 @@ ion-view{
       font-size: 20px !important;
       color: $positive;
     }
+  }
+}
+
+#place-detail {
+  ion-content {
+    .ion-ios-telephone-outline::before {
+      color: $color1;
+      font-weight: bold;
+    }
+    .ion-compose::before {
+      color: $color1;
+      font-weight: bold;
+    }
+  }
+  .platform-android,
+  .platform-ios & .activated {
+    background-color: white !important;
+    opacity: 0.7 !important;
   }
 }
 
@@ -1730,16 +1728,6 @@ ion-view{
   }
 }
 
-#postinfo-write{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 #postinfo-list{
   .bar-subheader{
     background-image: none;
@@ -1750,17 +1738,7 @@ ion-view{
   }
 }
 
-#postquestion-list{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-
-#postquestion-update{
+#postinfo-write{
   .bar-subheader{
     background-image: none;
   }
@@ -1807,6 +1785,26 @@ ion-view{
       font-size: 20px !important;
       color: $positive;
     }
+  }
+}
+
+#postquestion-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postquestion-update{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
   }
 }
 

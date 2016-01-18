@@ -23,61 +23,70 @@
             <div class="col-auto ml5p">
               <img class="h70px w70px r70px color0-b"
                 alt="프로파일 이미지"
-                ng-src="{{AppStorage.user.profilePhoto.src || 'http://placehold.it/70x70'}}"
+                ng-src="{{AppStorage.user | GetPhoto}}"
               >
             </div>
             <div class="col zero ml5p">
               <p class="zero color0 f16px mt5px bold">
-                {{AppStorage.user.name || 'Kim Ji Hee'}}
+                {{AppStorage.user.nickname || AppStorage.user.name || 'MyFitMate_User'}}
               </p>
 <!--
               <p class="zero color0 f14px mt5px bold">
                 {{AppStorage.user.location || '서울'}}
               </p>
  -->
-              <div class="row zero mt5px">
+              <div class="row zero mt5px"
+                ng-if="AppStorage.user.height"
+              >
                 <div class="col-auto">
                   <p class="zero white f14px">
                     현재 키
                   </p>
                 </div>
                 <div class="col zero ml5px">
-                  <p class="zero color0 f14px">
-                    {{AppStorage.user.height || '165cm'}}
+                  <p class="zero white f14px">
+                    {{AppStorage.user.height || '설정해주세요'}}
                   </p>
                 </div>
               </div>
-              <div class="row zero mt3px">
+
+              <div class="row zero mt3px"
+                ng-if="AppStorage.user.weight"
+              >
                 <div class="col-auto">
                   <p class="zero white f14px">
                     현재 몸무게
                   </p>
                 </div>
                 <div class="col zero ml5px">
-                  <p class="zero color0 f14px">
-                    {{AppStorage.user.weight || '68kg'}}
+                  <p class="zero white f14px">
+                    {{AppStorage.user.weight || '설정해주세요'}}
                   </p>
                 </div>
               </div>
 
               <div class="color0-bb w80p mt8px mb8px"></div>
 
-              <div class="row zero mt3px">
+              <div class="row zero mt3px"
+                ng-if="AppStorage.user.targetWeight"
+              >
                 <div class="col-auto">
                   <p class="zero white f14px">
                     목표 몸무게
                   </p>
                 </div>
                 <div class="col zero ml5px">
-                  <p class="zero color0 f14px">
-                    {{AppStorage.user.targetWeight || '56kg'}}
+                  <p class="zero white f14px">
+                    {{AppStorage.user.targetWeight || '설정해주세요'}}
                   </p>
                 </div>
               </div>
             </div> <!--col end-->
           </div> <!--row end-->
 
-          <div class="row zero mt20px mb5px">
+          <div class="row zero mt20px mb5px"
+          ng-click="Main.logout('Login')"
+          >
             <div class="col-50 flex-v ml5p">
               <div class="ion-log-out f26px white">
               </div>
@@ -103,44 +112,71 @@
           관심분야 설정
         </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'HEALTH'}"
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '헬스/트레이닝',
+            'white': AppStorage.selectedCategory !== '헬스/트레이닝'
+            }"
+            ng-click="AppStorage.selectedCategory = '헬스/트레이닝'"
           >
             헬스 / 트레이닝
           </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'AEROBIC'}"
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '에어로빅',
+            'white': AppStorage.selectedCategory !== '에어로빅'
+            }"
+            ng-click="AppStorage.selectedCategory = '에어로빅'"
           >
             에어로빅
           </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'PILATES'}"
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '필라테스',
+            'white': AppStorage.selectedCategory !== '필라테스'
+            }"
+            ng-click="AppStorage.selectedCategory = '필라테스'"
           >
             필라테스
           </p>
-          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'YOGA'}"
+          <p class="zero pt15px pb15px  white f14px pl5p darker-bg bold" 
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '요가',
+            'white': AppStorage.selectedCategory !== '요가'
+            }"
+            ng-click="AppStorage.selectedCategory = '요가'"
           >
             요가
           </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'BOXING'}"
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '복싱',
+            'white': AppStorage.selectedCategory !== '복싱'
+            }"
+            ng-click="AppStorage.selectedCategory = '복싱'"
           >
             복싱
           </p>
           <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-class="{'color2-bg positive': Main.Model.selectedCategory === 'CLIMBING'}"
+            ng-class="{
+            'color2-bg positive': AppStorage.selectedCategory === '클라이밍',
+            'white': AppStorage.selectedCategory !== '클라이밍'
+            }"
+            ng-click="AppStorage.selectedCategory = '클라이밍'"
           >
             클라이밍
           </p>
 
-        <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
-          예약설정
-        </p>
-          <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
-            ng-click="goToState('Main.BookingCancelList', null, 'forward')"
-          >
-            예약취소
-          </p>
+          <div ng-if="false">
+            <p class="zero pt10px pb10px color0 f14px pl5p dark-bg bold">
+              예약설정
+            </p>
+            <p class="zero pt15px pb15px white f14px pl5p darker-bg bold"
+              ng-click="goToState('Main.BookingCancelList', null, 'forward')"
+            >
+              예약취소
+            </p>
+            
+          </div>
 
       </ion-content>
     </ion-side-menu>

@@ -27,6 +27,7 @@
     ProfileSetting.Model = ProfileSettingModel;
     var initPromise;
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
+    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
     ProfileSetting.getPhoto = getPhoto;
@@ -44,6 +45,7 @@
         .then(function(user) {
           console.log("---------- user ----------");
           console.log(user);
+          ProfileSettingModel.form.photos = user.photos;
           ProfileSettingModel.form.nickname = user.nickname;
           ProfileSettingModel.form.height = user.height;
           ProfileSettingModel.form.weight = user.weight;
@@ -53,6 +55,10 @@
         .catch(function(err) {
           U.error(err);
         });
+    }
+
+    function onBeforeLeave() {
+      ProfileSettingModel.form = {};
     }
 
     function getPhoto(sourceType) {
@@ -74,20 +80,35 @@
 
     function sendForm() {
       Message.loading();
-      return Photo.post('/user/update', {
-          query: {
-            id: AppStorage.user.id,
-            nickname: ProfileSettingModel.form.nickname,
-            height: ProfileSettingModel.form.height,
-            weight: ProfileSettingModel.form.weight,
-            targetWeight: ProfileSettingModel.form.targetWeight
-          }
-        }, 'PUT')
+      var queryWrapper = {
+        query: {
+          id: AppStorage.user.id,
+          nickname: ProfileSettingModel.form.nickname,
+          height: ProfileSettingModel.form.height,
+          weight: ProfileSettingModel.form.weight,
+          targetWeight: ProfileSettingModel.form.targetWeight
+        },
+        files: ProfileSettingModel.form.files
+      };
+      // if there is no file being sent set toKeepPhotos to original
+      if (ProfileSettingModel.form.files.length === 0) {
+        queryWrapper.query.photos = ProfileSettingModel.form.photos;
+      } else {
+        // if there are files
+        queryWrapper.files = ProfileSettingModel.form.files;
+      }
+      return Photo.post('/user/update', queryWrapper, 'PUT')
         .then(function(updatedUserWrapper) {
           var updatedUser = updatedUserWrapper.data;
           console.log("---------- updatedUser ----------");
           console.log(updatedUser);
           AppStorage.user = updatedUser;
+          ProfileSettingModel.form.files = [];
+          ProfileSettingModel.form.photos = updatedUser.photos;
+          ProfileSettingModel.form.nickname = updatedUser.nickname;
+          ProfileSettingModel.form.height = updatedUser.height;
+          ProfileSettingModel.form.weight = updatedUser.weight;
+          ProfileSettingModel.form.targetWeight = updatedUser.targetWeight;
           return Message.alert('프로필 설정 알림', '프로필을 성공적으로 업데이트 하였습니다');
         })
         .then(function() {
@@ -109,9 +130,11 @@
     function findOneUser() {
       var queryWrapper = {
         query: {
-          id: AppStorage.user.id
+          where: {
+            id: AppStorage.user.id
+          },
+          populates: ['photos']
         },
-        populates: ['photos']
       };
       return User.findOne(queryWrapper).$promise;
     }

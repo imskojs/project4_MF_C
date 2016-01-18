@@ -11,7 +11,7 @@
     "ngCordova": "~0.1.23-alpha",
     "ngstorage": "~0.3.10",
     "ng-file-upload": "7.3.9",
-    "ng-img-crop-full-extended": "ngImgCropFullExtended#~0.4.7",
+    "ng-img-crop-full-extended": "https://github.com/imskojs/ngImgCropFullExtended.git#master",
     "uiBootstrapDatePicker": "https://github.com/imskojs/uiBootStrapDatePicker.git"
   },
   "resolutions": {

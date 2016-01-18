@@ -6,13 +6,13 @@
 
   // Place or Posts
   daumMap.$inject = [
-    '$state', '$cordovaGeolocation', '$q', '$stateParams', '$window',
-    'DaumMapModel', 'Message', 'Place', 'U'
+    '$state', '$cordovaGeolocation', '$q', '$stateParams', '$window', '$filter',
+    'DaumMapModel', 'Message', 'Place', 'U', 'AppStorage'
   ];
 
   function daumMap(
-    $state, $cordovaGeolocation, $q, $stateParams, $window,
-    DaumMapModel, Message, Place, U
+    $state, $cordovaGeolocation, $q, $stateParams, $window, $filter,
+    DaumMapModel, Message, Place, U, AppStorage
   ) {
 
     var daum = $window.daum;
@@ -59,7 +59,8 @@
             .then(processPin.bind(null, markerImg, markerClickedImg, scope))
             .catch(function error(err) {
               Message.hide();
-              Message.alert();
+              // Message.alert();
+              console.log("---------- err: requestPlaceWithin: DaumMap ----------");
               console.log(err);
             });
         };
@@ -99,7 +100,7 @@
                     $maxDistance: currentCenter.distance || 5000
                   }
                 },
-                category: $stateParams.category,
+                category: $filter('AppText')(AppStorage.selectedCategory),
                 limit: currentCenter.limit || 50,
                 populates: ['photos']
               }

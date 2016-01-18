@@ -35,13 +35,13 @@
           <p class="zero pt10px pb10px f16px bold">관심 분야를 설정해 주세요.</p>
           <div class="zero mb10px">
             <select class="grey-b1px w200px h30px"
-              ng-model="FavoriteSetting.Info"
+              ng-model="AppStorage.selectedCategory"
               ng-options="Info.name for Info in FavoriteSetting.Infos"
             >
             </select>
           </div>
           <button class="button-clear mb10px positive-bb2px bold"
-            ng-click=""
+            ng-click="goToState('Main.Home', null, 'forward')"
           >
             설정하기
           </button>

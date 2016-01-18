@@ -188,6 +188,9 @@
           refresh();
           return Message.alert('댓글달기 알림', '댓글을 성공적으로 작성하였습니다.');
         })
+        .then(function() {
+          PostFitDetail.commentContent = '';
+        })
         .catch(function(err) {
           U.error(err);
         });

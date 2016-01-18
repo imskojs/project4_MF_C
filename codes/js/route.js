@@ -358,7 +358,7 @@
       //  CouponDetail
       //====================================================
       .state('Main.CouponDetail', {
-        url: '/CouponDetail/:id',
+        url: '/CouponDetail/:placeName/:id',
         views: {
           Main: {
             templateUrl: 'state/CouponDetail/CouponDetail.html',

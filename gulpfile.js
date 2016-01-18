@@ -30,7 +30,7 @@ var paths = {
   view: ['./codes/**/*.html', '!./codes/lib/**'],
   sassLib: [
     // 3rd Part lib
-    './codes/lib/ng-img-crop/source/scss/ng-img-crop.scss',
+    './codes/lib/ng-img-crop-full-extended/source/scss/ng-img-crop.scss',
     // ionic lib (imports)
     './codes/scss/00_variables.scss',
     './codes/scss/00_functions.scss',
@@ -149,9 +149,9 @@ gulp.task('js', function(done) {
   gulp.src(paths.js)
     .pipe(concat('app.all.js'))
     .pipe(gulpif(argv.production, stripDebug()))
-    .pipe(gulpif(argv.production, uglify({
-      mangle: false
-    })))
+    // .pipe(gulpif(argv.production, uglify({
+    //   mangle: false
+    // })))
     .pipe(rename({
       extname: '.min.js'
     }))

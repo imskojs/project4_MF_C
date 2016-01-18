@@ -18,14 +18,17 @@
       '/:findOne' +
       // '/:create' +
       // '/:update' +
-      '/:destroy';
+      '/:destroy' +
+
+      '/:contactAdmin';
 
     var params = {
       find: '@find',
       findOne: '@findOne',
       // create: '@create',
       // update: '@update',
-      destroy: '@destroy'
+      destroy: '@destroy',
+      contactAdmin: '@contactAdmin'
     };
 
     var actions = {
@@ -57,6 +60,15 @@
         method: 'DELETE',
         params: {
           destroy: 'destroy'
+        }
+      },
+
+
+
+      contactAdmin: {
+        method: 'POST',
+        params: {
+          contactAdmin: 'contactAdmin'
         }
       }
     };

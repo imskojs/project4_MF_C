@@ -17,16 +17,18 @@
 
   function AppText() {
     return function(input) {
-      if (input === 'faq') {
-        return '자주 묻는 질문';
-      } else if (input === 'notification') {
-        return '공지사항';
-      } else if (input === 'high') {
-        return '상';
-      } else if (input === 'medium') {
-        return '중';
-      } else if (input === 'low') {
-        return '하';
+      if (input === '헬스/트레이닝') {
+        return 'HEALTH-CLUB';
+      } else if (input === '에어로빅') {
+        return 'AEROBIC-CLUB';
+      } else if (input === '필라테스') {
+        return 'PILATES-CLUB';
+      } else if (input === '요가') {
+        return 'YOGA-CLUB';
+      } else if (input === '복싱') {
+        return 'BOXING-CLUB';
+      } else if (input === '클라이밍') {
+        return 'CLIMBING-CLUB';
       }
     };
   }

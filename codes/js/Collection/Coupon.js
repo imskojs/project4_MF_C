@@ -18,6 +18,8 @@
       '/:findOne' +
       '/:create' +
       '/:update' +
+      '/:updatePassword' +
+      '/:use' +
       '/:destroy';
 
     var params = {
@@ -25,7 +27,9 @@
       findOne: '@findOne',
       create: '@create',
       update: '@update',
-      destroy: '@destroy'
+      destroy: '@destroy',
+      updatePassword: '@updatePassword',
+      use: '@use'
     };
 
     var actions = {
@@ -51,6 +55,18 @@
         method: 'PUT',
         params: {
           update: 'update'
+        }
+      },
+      updatePassword: {
+        method: 'PUT',
+        params: {
+          updatePassword: 'updatePassword'
+        }
+      },
+      use: {
+        method: 'PUT',
+        params: {
+          use: 'use'
         }
       },
       destroy: {

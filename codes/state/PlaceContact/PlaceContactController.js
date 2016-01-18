@@ -25,16 +25,17 @@
       Message.loading();
       Place.contactOwner({}, {
           place: $state.params.place,
-          title: PlaceContactModel.title,
-          content: PlaceContactModel.content
+          title: PlaceContactModel.form.title,
+          content: PlaceContactModel.form.content
         }).$promise
         .then(function(messageWrapper) {
           console.log("---------- messageWrapper ----------");
           console.log(messageWrapper);
-          return Message.alert('연락받기 알림', $state.params.name + '에 성공적으로 이메일을 보넸습니다.');
+          return Message.alert('연락받기 알림', $state.params.name + '에 성공적으로 이메일을 보냈습니다.');
         })
         .then(function() {
           reset();
+          U.goBack();
         })
         .catch(function(err) {
           U.error(err);

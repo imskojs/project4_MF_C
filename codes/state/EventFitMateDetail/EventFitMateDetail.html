@@ -48,7 +48,7 @@
     </div>
 
     <div class="relative zero positive-bg20">
-      <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
+      <img class="absolute top5px left5px w50px h50px r50p lazy-show" src="img/side_menu_02.png">
       <div class="zero ml30px pt20px pr30px pb20px pl30px color1-bl1px">
         <div class="flex-v zero mb10px">
           <p class="zero pr5px f12px color5 bold">
@@ -59,9 +59,8 @@
           </p>
         </div>
         <div class="zero">
-          <img class="block w100p h240px mb10px"
-            ng-repeat="photo in EventFitMateDetail.Model.post.photos"
-            ng-src="{{photo.url}}"
+          <img class="block w100p h240px mb10px lazy-show"
+            ng-src="{{EventFitMateDetail.Model.post.photos[0].url | Cloudinary500}}"
           >
         </div>
         <p class="zero f12px lh14px darker">
@@ -103,7 +102,7 @@
             </p>
           </div>
           <button class="button-clear ion-android-close absolute top0px right0px"
-            ng-if="AppStorage.user.owner === comment.owner"
+            ng-if="AppStorage.user.id === comment.createdBy.id"
             ng-click="EventFitMateDetail.destroyComment(comment.id)"
           >
           </button>

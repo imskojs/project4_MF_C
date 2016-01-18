@@ -33,8 +33,7 @@
                 alt="프로파일 이미지"
                 ng-src="{{
                   ProfileSetting.Model.form.files[0] ||
-                  AppStorage.user.profilePhoto.src ||
-                 'http://placehold.it/70x70'
+                  (AppStorage.user | GetPhoto)
                 }}"
                 ng-if="ProfileSetting.Model.imgLoading === false"
               >

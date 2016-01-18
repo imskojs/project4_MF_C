@@ -14,6 +14,7 @@
   ) {
     var EventCompanyList = this;
     EventCompanyList.Model = EventCompanyListModel;
+    var initPromise;
     var noLoadingStates = [
       'Main.EventCompanyContact', 'Main.EventCompanyDetail'
     ];
@@ -23,7 +24,6 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
 
     //====================================================
     // Initial Loading of a state;
@@ -31,46 +31,32 @@
     function onBeforeEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
         U.loading(EventCompanyListModel);
+        initPromise = init();
       }
     }
 
     function onAfterEnter() {
       if (!U.hasPreviousStates(noLoadingStates)) {
-        return loadPost();
+        return initPromise
+          .then(function(postsWrapper) {
+            console.log("---------- postsWrapper ----------");
+            console.log(postsWrapper);
+            U.bindData(postsWrapper, EventCompanyListModel, 'posts');
+          })
+          .catch(function(err) {
+            U.error(err);
+          });
+      } else {
+        U.freeze(false);
       }
     }
 
-    function onBeforeLeave() {
-      U.resetSlides();
-    }
-
     function refresh() {
-      loadPost();
-    }
-
-    function loadMore() {
-      var last = EventCompanyListModel.posts.length - 1;
-      return loadPost({
-        id: {
-          '<': EventCompanyListModel.posts[last].id
-        }
-      }, null, true /*appendData*/ );
-    }
-
-    //====================================================
-    //  Helper
-    //====================================================
-
-    function loadPost(extraQuery, extraOpertaion, appendTrue) {
-      return find(extraQuery)
+      return init()
         .then(function(postsWrapper) {
           console.log("---------- postsWrapper ----------");
           console.log(postsWrapper);
-          if (appendTrue) {
-            U.appendData(postsWrapper, EventCompanyListModel, 'posts');
-          } else {
-            U.bindData(postsWrapper, EventCompanyListModel, 'posts');
-          }
+          U.bindData(postsWrapper, EventCompanyListModel, 'posts');
         })
         .catch(function(err) {
           U.error(err);
@@ -78,6 +64,32 @@
         .finally(function() {
           U.broadcast($scope);
         });
+    }
+
+    function loadMore() {
+      var last = EventCompanyListModel.posts.length - 1;
+      return find({
+          id: {
+            '<': EventCompanyListModel.posts[last].id
+          }
+        })
+        .then(function(postsWrapper) {
+          U.appendData(postsWrapper, EventCompanyListModel, 'posts');
+        })
+        .catch(function(err) {
+          U.error(err);
+        })
+        .finally(function() {
+          U.broadcast($scope);
+        });
+    }
+
+    //====================================================
+    //  Helper
+    //====================================================
+
+    function init() {
+      return find();
     }
 
     //====================================================

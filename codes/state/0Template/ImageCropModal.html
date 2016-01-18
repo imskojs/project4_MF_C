@@ -1,21 +1,25 @@
-  <ion-modal-view>
-    <ion-content>
-      <div class="crop-area w100vw h100vh">
-        <img-crop
-          image="ImageCropAttribute.sourceImageBase64"
-          result-image="ImageCropAttribute.croppedImageBase64"
-          area-type="{{ImageCropAttribute.areaType}}"
-        >
-        </img-crop>
-      </div>
-    </ion-content>
-    <ion-footer-bar class="bar-positive footer zero">
-      <div class="row zero">
-        <button class="button"
-          ng-click="ImageCropModal.hide();"
-        >
-          완료
-        </button>
-      </div>
-    </ion-footer-bar>
-  </ion-modal-view>
+<ion-modal-view>
+  <ion-content class="light-bg"
+    data-tap-disabled="true"
+  >
+    <div class="crop-area w100vw h100vh">
+      <img-crop
+        image="ImageCropAttribute.sourceImageBase64"
+        result-image="ImageCropAttribute.croppedImageBase64"
+        result-image-size="ImageCropAttribute.resultImageSize"
+        area-type="{{ImageCropAttribute.areaType}}"
+        aspect-ratio="ImageCropAttribute.aspectRatio"
+      >
+      </img-crop>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="bar-positive footer zero">
+    <div class="row zero flex">
+      <button class="button f18px bold"
+        ng-click="ImageCropModal.hide();"
+      >
+        완료
+      </button>
+    </div>
+  </ion-footer-bar>
+</ion-modal-view>
