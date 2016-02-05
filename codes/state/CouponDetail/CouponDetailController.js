@@ -79,7 +79,7 @@
 
     function useCoupon() {
       Message.loading();
-      use()
+      return couponUse()
         .then(function() {
           CouponDetail.modal.hide();
           Message.alert('쿠폰사용 알림', '쿠폰을 성공적으로 사용하였습니다.');
@@ -120,7 +120,7 @@
         });
     }
 
-    function use() {
+    function couponUse() {
       var queryWrapper = {
         query: {
           id: $state.params.id,
@@ -135,6 +135,25 @@
         });
 
     }
+
+    // function couponCreate() {
+    //   return Coupon.create({}, {
+    //       title: 'test title',
+    //       content: 'test content',
+    //       quantity: 90,
+    //       password: 1234,
+    //       place: $state.params.id
+    //     }).$promise
+    //     .then(function(coupon) {
+    //       console.log("---------- coupon ----------");
+    //       console.log(coupon);
+    //     })
+    //     .catch(function(err) {
+    //       console.log("---------- err ----------");
+    //       console.log(err);
+    //     });
+    // };
+
 
   }
 })(angular);

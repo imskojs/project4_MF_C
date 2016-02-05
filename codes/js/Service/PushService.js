@@ -1,3 +1,4 @@
+// Implements latest version of phonegap-push-plugin
 (function() {
   'use strict';
 
@@ -7,13 +8,13 @@
   PushService.$inject = [
     '$http', '$log', '$q', '$cordovaDialogs', '$window',
     '$timeout', '$rootScope', '$cordovaMedia',
-    'googlePushSenderID', 'governorUrl'
+    'GOOGLE_PROJECT_NUMBER', 'SERVER_URL'
   ];
 
   function PushService(
     $http, $log, $q, $cordovaDialogs, $window,
     $timeout, $rootScope, $cordovaMedia,
-    googlePushSenderID, governorUrl
+    GOOGLE_PROJECT_NUMBER, SERVER_URL
   ) {
     var deviceId = null;
 
@@ -29,7 +30,7 @@
     function registerDevice() {
       var push = $window.PushNotification.init({
         android: {
-          "senderID": googlePushSenderID,
+          "senderID": GOOGLE_PROJECT_NUMBER,
           "icon": "pushicon"
         },
         ios: {
@@ -83,7 +84,7 @@
         active: true
       };
       return $http({
-          url: governorUrl + '/device',
+          url: SERVER_URL + '/device/register',
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -1403,6 +1403,16 @@ ion-view{
   }
 }
 
+#eventcompany-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
+  }
+}
+
 #eventcompany-detail{
   .bar-subheader{
     background-image: none;
@@ -1440,16 +1450,6 @@ ion-view{
       font-size: 20px !important;
       color: $positive;
     }
-  }
-}
-
-#eventcompany-list{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
-    background-size: cover;
   }
 }
 
@@ -1590,6 +1590,24 @@ ion-view{
   }
 }
 
+#place-detail {
+  ion-content {
+    .ion-ios-telephone-outline::before {
+      color: $color1;
+      font-weight: bold;
+    }
+    .ion-compose::before {
+      color: $color1;
+      font-weight: bold;
+    }
+  }
+  .platform-android,
+  .platform-ios & .activated {
+    background-color: white !important;
+    opacity: 0.7 !important;
+  }
+}
+
 #postfit-detail{
   .bar-subheader{
     background-image: none;
@@ -1627,24 +1645,6 @@ ion-view{
       font-size: 20px !important;
       color: $positive;
     }
-  }
-}
-
-#place-detail {
-  ion-content {
-    .ion-ios-telephone-outline::before {
-      color: $color1;
-      font-weight: bold;
-    }
-    .ion-compose::before {
-      color: $color1;
-      font-weight: bold;
-    }
-  }
-  .platform-android,
-  .platform-ios & .activated {
-    background-color: white !important;
-    opacity: 0.7 !important;
   }
 }
 
@@ -1718,16 +1718,6 @@ ion-view{
   }
 }
 
-#postinfo-update {
-  .bar-subheader {
-    background-image: none;
-  }
-  ion-content {
-    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 #postinfo-list{
   .bar-subheader{
     background-image: none;
@@ -1743,6 +1733,16 @@ ion-view{
     background-image: none;
   }
   ion-content{
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postinfo-update {
+  .bar-subheader {
+    background-image: none;
+  }
+  ion-content {
     background: url('../img/favoritesetting_03.jpg') no-repeat center center;
     background-size: cover;
   }

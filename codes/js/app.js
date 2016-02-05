@@ -16,13 +16,13 @@
 
   init.$inject = [
     '$ionicPlatform', '$window', '$rootScope', '$state',
-    'RootScope', 'Preload',
+    'RootScope', 'Preload', 'PushService',
     'DEV_MODE', 'Assets'
   ];
 
   function init(
     $ionicPlatform, $window, $rootScope, $state,
-    RootScope, Preload,
+    RootScope, Preload, PushService,
     DEV_MODE, Assets
   ) {
 
@@ -42,6 +42,7 @@
     //====================================================
     function onIonicPlatformReady() {
       if ($window.cordova && $window.cordova.plugins.Keyboard) {
+        PushService.registerDevice();
         $window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if ($window.StatusBar) {
@@ -59,6 +60,7 @@
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
         $state.go('Login');
+        // $state.go('Main.PlaceDetail');
         // $state.go('FavoriteSetting');
       } else {
         // Normal user logic
