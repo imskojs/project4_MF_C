@@ -1280,23 +1280,19 @@ ion-view{
   }
 }
 
-#post-info{
-  .bar-subheader{
-    background-image: none;
-  }
-}
-
 #post-question{
   .bar-subheader{
     background-image: none;
   }
 }
 
-#bookingcancel-list{
-
+#post-info{
+  .bar-subheader{
+    background-image: none;
+  }
 }
 
-#coupon-detail{
+#bookingcancel-list{
 
 }
 
@@ -1393,22 +1389,16 @@ ion-view{
     }
 }
 
+#coupon-detail{
+
+}
+
 #eventcompany-contact{
   .bar-subheader{
     background-image: none;
   }
   ion-content{
     background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
-#eventcompany-list{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/profile_03.png') no-repeat center center;
     background-size: cover;
   }
 }
@@ -1450,6 +1440,16 @@ ion-view{
       font-size: 20px !important;
       color: $positive;
     }
+  }
+}
+
+#eventcompany-list{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
+    background: url('../img/profile_03.png') no-repeat center center;
+    background-size: cover;
   }
 }
 
@@ -1728,21 +1728,21 @@ ion-view{
   }
 }
 
-#postinfo-write{
-  .bar-subheader{
-    background-image: none;
-  }
-  ion-content{
-    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
 #postinfo-update {
   .bar-subheader {
     background-image: none;
   }
   ion-content {
+    background: url('../img/favoritesetting_03.jpg') no-repeat center center;
+    background-size: cover;
+  }
+}
+
+#postinfo-write{
+  .bar-subheader{
+    background-image: none;
+  }
+  ion-content{
     background: url('../img/favoritesetting_03.jpg') no-repeat center center;
     background-size: cover;
   }
